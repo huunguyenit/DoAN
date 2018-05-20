@@ -2,7 +2,7 @@ var express = require('express')
 var mysql = require('mysql')
 var	q = require('q');
 
-var configDb = {
+var configdb = {
 	host: 'localhost',
 	user: 'root',
 	password: '',
@@ -12,22 +12,23 @@ var configDb = {
 exports.load = function(sql) {
 	var d = q.defer();
 
-    var cn = mysql.createConnection(configDb);
+    var cn = mysql.createConnection(configdb);
 
-	cn.connect((error) => {
+	/*cn.connect((error) => {
 		if (error) {
 			console.log(err);
 		} else {
 			console.log('connection database success !')
 		}
-	});
+	});*/
+	cn.connect();
 	
 	cn.query(sql, function (error, rows, fields) {
 		if (error) {
 			d.reject(error);
 		} else {
 			d.resolve(rows);
-			console.log(rows);
+			//console.log(rows);
 		}
 		cn.end();
 	});

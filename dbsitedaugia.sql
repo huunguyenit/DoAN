@@ -60,7 +60,8 @@ CREATE TABLE IF NOT EXISTS `image` (
   `Image1` varchar(50) NOT NULL,
   `Image2` varchar(50) NOT NULL,
   `Image3` varchar(50) NOT NULL,
-  KEY `FK_product_image` (`IdProduct`)
+  FOREIGN KEY (IdProduct)
+        REFERENCES product(Id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -172,7 +173,11 @@ INSERT INTO `product` (`Id`, `ProductName`, `PriceNow`, `PricePay`, `TimeUp`, `T
 DROP TABLE IF EXISTS `productofcategory`;
 CREATE TABLE IF NOT EXISTS `productofcategory` (
   `IdProduct` varchar(10) NOT NULL,
-  `IdCategory` varchar(10) NOT NULL
+  `IdCategory` varchar(10) NOT NULL,
+	FOREIGN KEY (IdProduct)
+        REFERENCES product(Id),
+	FOREIGN KEY (IdCategory)
+        REFERENCES category(Id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -249,7 +254,9 @@ INSERT INTO `user` (`Email`, `PassWord`, `FullName`, `Address`, `Rating`, `isAdm
 DROP TABLE IF EXISTS `userblockauction`;
 CREATE TABLE IF NOT EXISTS `userblockauction` (
   `Email` varchar(50) NOT NULL,
-  `IdProduct` varchar(10) NOT NULL
+  `IdProduct` varchar(10) NOT NULL,
+	FOREIGN KEY (Email)
+        REFERENCES user(Email)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -271,7 +278,11 @@ CREATE TABLE IF NOT EXISTS `userbuyproduct` (
   `IdProduct` varchar(10) NOT NULL,
   `Comment` varchar(50) NOT NULL,
   `Cost` int(11) NOT NULL,
-  `Rating` bit(1) NOT NULL
+  `Rating` bit(1) NOT NULL,
+	FOREIGN KEY (Email)
+        REFERENCES user(Email),
+	FOREIGN KEY (Idproduct)
+        REFERENCES product(Id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -283,7 +294,11 @@ CREATE TABLE IF NOT EXISTS `userbuyproduct` (
 DROP TABLE IF EXISTS `userupproduct`;
 CREATE TABLE IF NOT EXISTS `userupproduct` (
   `Email` varchar(50) NOT NULL,
-  `IdProduct` varchar(10) NOT NULL
+  `IdProduct` varchar(10) NOT NULL,
+	FOREIGN KEY (Email)
+        REFERENCES user(Email),
+	FOREIGN KEY (Idproduct)
+        REFERENCES product(Id)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
