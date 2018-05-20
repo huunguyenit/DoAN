@@ -1,31 +1,34 @@
-var mysql = require('mysql'),
-	q = require('q');
+var express = require('express')
+var mysql = require('mysql')
+var	q = require('q');
 
-const _HOST = '127.0.0.1',
-	_PORT = '8080',
-	_USER = 'root',
-	_PWD = '',
-	_DB = 'dbsitedaugia';
+var configDb = {
+	host: 'localhost',
+	user: 'root',
+	password: '',
+	database: 'dbsitedaugia'
+}
 
 exports.load = function(sql) {
 	var d = q.defer();
 
-    var cn = mysql.createConnection({
-		host: _HOST,
-		port: _PORT,
-		user: _USER,
-		password: _PWD,
-		database: _DB
-	});
+    var cn = mysql.createConnection(configDb);
 
-	cn.connect();
+	cn.connect((error) => {
+		if (error) {
+			console.log(err);
+		} else {
+			console.log('connection database success !')
+		}
+	});
+	
 	cn.query(sql, function (error, rows, fields) {
 		if (error) {
 			d.reject(error);
 		} else {
 			d.resolve(rows);
+			console.log(rows);
 		}
-
 		cn.end();
 	});
 
