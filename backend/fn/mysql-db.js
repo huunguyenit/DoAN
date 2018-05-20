@@ -1,4 +1,3 @@
-var express = require('express')
 var mysql = require('mysql')
 var	q = require('q');
 
@@ -28,7 +27,10 @@ exports.load = function(sql) {
 			d.reject(error);
 		} else {
 			d.resolve(rows);
+<<<<<<< HEAD
 			//console.log(rows);
+=======
+>>>>>>> 5f8d890388d30c622fd92f4c4558fc2e5a00d83e
 		}
 		cn.end();
 	});
