@@ -1,4 +1,4 @@
-var data = require('../apiController/fn/mysql-db');
+var data = require('../fn/mysql-db');
 
 exports.LoadPage = function(page){
     var offset = (page-1)*8;

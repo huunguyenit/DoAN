@@ -13,14 +13,13 @@ exports.load = function(sql) {
 
     var cn = mysql.createConnection(configdb);
 
-	/*cn.connect((error) => {
+	cn.connect((error) => {
 		if (error) {
-			console.log(err);
+			console.log(error);
 		} else {
 			console.log('connection database success !')
 		}
-	});*/
-	cn.connect();
+	});
 	
 	cn.query(sql, function (error, rows, fields) {
 		if (error) {
@@ -36,15 +35,16 @@ exports.load = function(sql) {
 
 exports.save = function(sql) {
 	
-    var cn = mysql.createConnection({
-		host: _HOST,
-		port: _PORT,
-		user: _USER,
-		password: _PWD,
-		database: _DB
+    var cn = mysql.createConnection(configdb);
+
+	cn.connect((error) => {
+		if (error) {
+			console.log(error);
+		} else {
+			console.log('connection database success !')
+		}
 	});
 
-	cn.connect();
 	cn.query(sql, function (error, value) {
 		if (error) {
 			console.log(error);
