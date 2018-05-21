@@ -26,4 +26,4 @@ exports.sendRequest (method, endpoint, data, headers) {
             })
         })
     })
-}
+};
