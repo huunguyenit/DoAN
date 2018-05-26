@@ -73,6 +73,23 @@ router.get('/searchproduct/:name', (req, res) => {
     }
 })
 
+// router.post('/autoAdd10minutes', (req, res) => {
+//     productRepo.AutoAdd10Minutes
+// })
+
+router.post('/create', (req, res) => {
+    var message = {
+        message: 'Create success'
+    }
+    productRepo.AddProduct(req.body).then((rows) => {
+        res.send(message);
+    }).catch((err) => {
+        console.log(err);
+    })
+})
+
+
+
 // router.post('/', (req, res) => {
 // 	categoryRepo.add(req.body)
 // 		.then(insertId => {

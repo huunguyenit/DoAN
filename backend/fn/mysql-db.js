@@ -55,3 +55,42 @@ exports.save = function(sql) {
 		cn.end();
 	});
 }
+
+
+exports.insert = function (sql) {
+	var d = q.defer();
+	
+	var cn = mysql.createConnection(configdb);
+
+	cn.connect();
+	cn.query(sql, function (error, value) {
+		if (error) {
+			d.reject(error);
+		} else {
+			d.resolve(value.insertId);
+		}
+
+		cn.end();
+	});
+
+	return d.promise;	
+}
+
+exports.delete = function (sql) {
+	var d = q.defer();
+	
+	var cn = mysql.createConnection(configdb);
+
+	cn.connect();
+	cn.query(sql, function (error, value) {
+		if (error) {
+			d.reject(error);
+		} else {
+			d.resolve(value.affectedRows);
+		}
+
+		cn.end();
+	});
+
+	return d.promise;	
+}

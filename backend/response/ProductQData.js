@@ -1,4 +1,5 @@
 var data = require('../fn/mysql-db');
+var date = new Date();
 
 exports.LoadPage = function(page){
     var offset = (page-1)*8;
@@ -44,7 +45,8 @@ exports.AutoAuction = function(Id) {
 }
 
 exports.AddProduct = function(pd) {
-    var sql = `insert into product(Id, ProductName, PriceNow, PricePay, TimeUp, TimeDown, Cost, Status, TurnPay, Detail, AutoUpdate) VALUES ('${pd.Id}','${pd.ProductName}' ,'${pd.PriceNow}','${pd.PricePay}','${pd.TimeUp}','${pd.TimeDown}','${pd.Cost}',b'${pd.Status}','${pd.TurnPay}',n'${pd.Detail}', b'${pd.AutoUpdate}') `;
+    console.log(pd);
+    var sql = `INSERT INTO product (Id, ProductName, PriceNow, PricePay, TimeUp, Cost, Status, TurnPay, Detail) VALUES ('${pd.Id}','${pd.ProductName}' ,'${pd.PriceNow}','${pd.PricePay}', NOW(),'${pd.Cost}','${pd.Status}','${pd.TurnPay}','${pd.Detail}') `;
 
     return data.insert(sql);
 }
