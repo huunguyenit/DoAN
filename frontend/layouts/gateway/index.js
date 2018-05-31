@@ -33,7 +33,11 @@ var search = () => {
                     ' </h4>' +
                     ' </div>' +
                     '<div class="snipcart-details top_brand_home_details">' +
-                    '<button class="button"><a href="products.html">Đấu giá</a></button>'
+                    '<form action="" method="post">' +
+                    ' <fieldset>' +
+                    '<input type="submit" name="submit" value="Add to cart" class="button" />' +
+                    ' </fieldset>' +
+                    ' </form>' +
                     '</div>' +
                     ' </div>' +
                     '</figure>' +
@@ -51,7 +55,7 @@ search()
 
 $.getJSON("http://localhost:5555/product/toppricenow", (data) => {
     $.each(data, (index, items) => {
-        console.log(items)
+        console.log(data)
         var item =
             '<div class="col-md-4 top_brand_left" style="padding-top: 20px">' +
             '<div class="hover14 column">' +
@@ -64,7 +68,7 @@ $.getJSON("http://localhost:5555/product/toppricenow", (data) => {
             '<div class="snipcart-item block">' +
             '<div class="snipcart-thumb">' +
             ' <span style="margin-left: 60px">Giá mua ngay: ' + Number(items.PricePay).toLocaleString() + '</span>' +
-            '<a href="products.html">' +
+            '<a href="single.html?id='+items.Id+'" data-user-id="' + items.Id + '">' +
             '<img title=" " alt=" " src="images/4.png" />' +
             '</a>' +
             '<p>' + items.ProductName + '</p>' +
@@ -79,17 +83,8 @@ $.getJSON("http://localhost:5555/product/toppricenow", (data) => {
             ' </h4>' +
             ' </div>' +
             '<div class="snipcart-details top_brand_home_details">' +
-            '<form action="#" method="post">' +
+            '<form action="http://localhost:8000/single.html">' +
             ' <fieldset>' +
-            '<input type="hidden" name="cmd" value="_cart" />' +
-            ' <input type="hidden" name="add" value="1" />' +
-            '<input type="hidden" name="business" value=" " />' +
-            '<input type="hidden" name="item_name" value="Fortune Sunflower Oil" />' +
-            ' <input type="hidden" name="amount" value="35.99" />' +
-            '<input type="hidden" name="discount_amount" value="1.00" />' +
-            '<input type="hidden" name="currency_code" value="USD" />' +
-            '<input type="hidden" name="return" value=" " />' +
-            '<input type="hidden" name="cancel_return" value=" " />' +
             '<input type="submit" name="submit" value="Add to cart" class="button" />' +
             ' </fieldset>' +
             ' </form>' +
