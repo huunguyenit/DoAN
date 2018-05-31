@@ -3,8 +3,9 @@ var productRepo = require('../response/ProductQData');
 
 var router = express.Router();
 
-router.get('/', (req, res) => {
-    productRepo.LoadPage(1).then(rows => {
+router.get('/pagination/:page', (req, res) => {
+    console.log('page`11111111111111111:', req.params.page)
+    productRepo.LoadPage(req.params.page).then(rows => {
         res.json(rows);
     }).catch(err => {
         console.log(err);
