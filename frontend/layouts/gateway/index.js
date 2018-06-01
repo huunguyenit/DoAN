@@ -1,6 +1,7 @@
 
 
 $.getJSON("http://localhost:5555/product/toppricenow", (data) => {
+    console.log(data)
     $.each(data, (index, items) => {
         var item =
         '<div class="col-md-4 top_brand_left" style="padding-top: 20px">'+
