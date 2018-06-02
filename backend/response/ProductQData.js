@@ -61,3 +61,10 @@ exports.GetCategoryFromProduct = function (id) {
     // select * from product inner join productofcategory on productofcategory.IdProduct = product.Id WHERE productofcategory.IdCategory = "CMX0000001"
     return data.load(sql)
 }
+
+exports.GetImage = function (id) {
+    var sql = ` select * from image where IdProduct = '${id}'`
+
+    return data.load(sql);
+}
+

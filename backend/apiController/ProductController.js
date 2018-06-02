@@ -100,6 +100,14 @@ router.get('/topturnpay1', (req, res) => {
     })
 })
 
+router.get('/getimage/:id', (req, res) => {
+    productRepo.GetImage(req.params.id).then((image) => {
+        res.json(image);
+    }).catch((err) => {
+        console.log(err);
+    })
+})
+
 // router.post('/', (req, res) => {
 // 	categoryRepo.add(req.body)
 // 		.then(insertId => {
