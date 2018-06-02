@@ -45,7 +45,6 @@ exports.AutoAuction = function(Id) {
 }
 
 exports.AddProduct = function(pd) {
-    console.log(pd);
     var sql = `INSERT INTO product (Id, ProductName, PriceNow, PricePay, TimeUp, Cost, Status, TurnPay, Detail) VALUES ('${pd.Id}','${pd.ProductName}' ,'${pd.PriceNow}','${pd.PricePay}', NOW(),'${pd.Cost}','${pd.Status}','${pd.TurnPay}','${pd.Detail}') `;
 
     return data.insert(sql);
@@ -53,6 +52,12 @@ exports.AddProduct = function(pd) {
 
 exports.load = function(Id) {
     var sql = `select * from product where Id = '${Id}'`
-    console.log(Id);
+    return data.load(sql)
+}
+
+exports.GetCategoryFromProduct = function (id) {
+    console.log('iddddddddddddd', id)
+    var sql = `select * from productofcategory where IdProduct = '${id}'`
+    // select * from product inner join productofcategory on productofcategory.IdProduct = product.Id WHERE productofcategory.IdCategory = "CMX0000001"
     return data.load(sql)
 }

@@ -36,6 +36,7 @@ router.get('/toppricenow', (req, res) => {
 
 router.get('/topendtime', (req, res) => {
     productRepo.TopEndTime().then((rows) => {
+        console.log(rows)
         res.json(rows)
     }).catch((err) => {
         console.log(err);
@@ -87,9 +88,17 @@ router.post('/create', (req, res) => {
     }).catch((err) => {
         console.log(err);
     })
+});
+
+router.get('/topturnpay1', (req, res) => {
+    productRepo.GetCategoryFromProduct().then((rows) => {
+        res.json(rows)
+    }).catch((err) => {
+        console.log(err);
+        res.statusCode = 500;
+        res.end('View error log on console');
+    })
 })
-
-
 
 // router.post('/', (req, res) => {
 // 	categoryRepo.add(req.body)
@@ -99,7 +108,7 @@ router.post('/create', (req, res) => {
 // 				CatName: req.body.CatName
 // 			};
 // 			res.statusCode = 201;
-// 			res.json(poco);
+// 			res.json(poco); 
 // 		})
 // 		.catch(err => {
 // 			console.log(err);

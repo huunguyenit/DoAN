@@ -15,7 +15,7 @@ exports.load = function(sql) {
 
 	cn.connect((error) => {
 		if (error) {
-			console.log(error);
+			console.log('err', error);
 		} else {
 			console.log('connection database success !')
 		}
