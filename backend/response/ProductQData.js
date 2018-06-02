@@ -21,7 +21,7 @@ exports.TopPriceNow = function(){
 }
 
 exports.TopEndTime = function(){
-    var sql = `SELECT * from product ORDER BY TimeDown LIMIT 0,5`
+    var sql = `SELECT * from product ORDER BY TimeDown DESC LIMIT 0,5`
 
     return data.load(sql);
 }

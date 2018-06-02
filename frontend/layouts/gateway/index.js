@@ -54,6 +54,7 @@ var search = () => {
 search()
 
 $.getJSON("http://localhost:5555/product/toppricenow", (data) => {
+    console.log(data)
     $.each(data, (index, items) => {
         console.log(data)
         var item =
