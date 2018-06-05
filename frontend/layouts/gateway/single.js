@@ -5,8 +5,6 @@ var c = url.searchParams.get("id");
 
 var showDetail = () => {
     $.getJSON("http://localhost:5555/product/" + c, (data) => {
-    
-
         var item =
             '<h2>' + data[0].ProductName + '</h2>' +
             '<div class="rating1">' +
@@ -38,6 +36,3 @@ var showDetail = () => {
 }
 
 showDetail();
-
-
-alert(c);
