@@ -1,5 +1,7 @@
 var express = require('express')
 var AuthService = require('../service/AuthService')
+var jwt = require('jsonwebtoken');
+
 
 let router = express.Router()
 
@@ -7,24 +9,43 @@ router.get('', (request, response) => {
     response.send('welcome to auth module')
 })
 
-router.get('/signin', (request, response) => {
-    let params = request.params
-    let query = request.query
+router.post('/signin', (request, response) => {
+    AuthService.signin(request.body).then((user) => {
+        const responseData = AuthService.authResponse(user)
+        response.send(responseData)
+    }).catch((err) => {
+        console.log(err);
+    })
+})
 
-    AuthService
-        .signin(query)
-        .then(result => {
-            if (!result) {
-                let error = new Error('Wrong username or password.')
-                return Promise.reject(error)
+var isToken = (req, res, next) => {
+    var token = req.headers['token'];
+    if (token) {
+        jwt.verify(token, 'secret', (err, payload) => {
+            if (err) {
+                res.statusCode = 401;
+                res.json({
+                    isError: true,
+                    error: err
+                });
+            } else {
+                req.tokenPayload = payload;
+                next();
             }
+        })
+    } else {
+        res.statusCode = 403;
+        res.json({
+            isError: true,
+            msg: 'token not found'
+        })
+    }
+}
 
-            const responseData = AuthService.authResponse(result)
-            response.status(200).send(responseData)
-        })
-        .catch(err => {
-            response.status(400).send(err.message)
-        })
+router.get('/secured', isToken, (req, res) => {
+    res.json({
+        payload: req.tokenPayload
+    })
 })
 
 router.get('/signup', (request, response) => {

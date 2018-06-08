@@ -56,9 +56,7 @@ exports.load = function(Id) {
 }
 
 exports.GetCategoryFromProduct = function (id) {
-    console.log('iddddddddddddd', id)
-    var sql = `select * from product where IdProduct = '${id}'`
-    // select * from product inner join productofcategory on productofcategory.IdProduct = product.Id WHERE productofcategory.IdCategory = "CMX0000001"
+    var sql = `select * from product where id_category = '${id}' limit 0,4`
     return data.load(sql)
 }
 
