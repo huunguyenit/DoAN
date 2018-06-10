@@ -1,29 +1,31 @@
 var mysql = require('../fn/mysql-db')
 var jwt = require('jsonwebtoken')
 
-exports.signin = (params) => {
+// exports.signin = (params) => {
 
-    // checking params have email and password.
-    if (!params.email || !params.password) {
-        let error = new Error('Email & password can\'t be empty')
-        return Promise.reject(error)
-    }
+//     // checking params have email and password.
+//     if (!params.email || !params.password) {
+//         let error = new Error('Email & password can\'t be empty')
+//         return Promise.reject(error)
+//     }
 
-    // get user.
-    const ACTIVE = 1
-    let query = `SELECT * FROM user WHERE email = '${params.email}' AND password = '${params.password}' AND isReal = ${ACTIVE}`
-    let user = mysql.load(query)
+//     // get user.
+//     const ACTIVE = 1
+//     let query = `SELECT * FROM user WHERE email = '${params.email}' AND password = '${params.password}' AND isReal = ${ACTIVE}`
+//     let user = mysql.load(query)
 
-    return user
-        .then(result => {
-            // just get first user.
-            let userData = result[0]
-            return Promise.resolve(userData)
-        })
-        .catch(err => {
-            return Promise.reject(err)
-        })
-}
+//     return user
+//         .then(result => {
+//             // just get first user.
+//             let userData = result[0]
+//             return Promise.resolve(userData)
+//         })
+//         .catch(err => {
+//             return Promise.reject(err)
+//         })
+// }
+
+
 
 exports.signup = (params) => {
     let defaultParams = {
@@ -48,16 +50,24 @@ exports.signup = (params) => {
         })
 }
 
-exports.authResponse = (user) => {
-    // generate token.
-    let data = {
-        'email': user.Email,
-        'isAdmin': user.isAdmin ? user.isAdmin.data : 0
-    }
-    let token = jwt.sign(data, process.env.JWT_PK)
+exports.signin = (body) => {
+    const ACTIVE = 1;
+    let query = `SELECT * FROM user WHERE Email = '${body.email}' AND PassWord = '${body.password}' AND isReal = ${ACTIVE}`
+    return mysql.load(query)
+}
 
-    return {
-        user: user,
-        token: token
+exports.authResponse = (user) => {
+    if(user[0]) {
+        let payload = {
+            'email': user[0].Email,
+            'isAdmin': user[0].isAdmin ? user[0].isAdmin.data : 0
+        }
+        let token = jwt.sign(payload, 'secret')
+        return {
+            user: user,
+            token: token
+        }
+    } else {
+        return new Error('Validation fail')
     }
 }

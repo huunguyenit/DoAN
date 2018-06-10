@@ -1,13 +1,31 @@
+var url_string = window.location.href;
+var url = new URL(url_string);
+var c = url.searchParams.get("email");
+if(c !== null){
+    $('#loginSuccess').hide()
+    $('#username').html(c)
+    $('#loginSuccessuser').show()
+    
+}
+else{
+    $('#loginSuccess').show()
+    $('#loginSuccessuser').hide()
+}
+
+$('#logout').click(function(){
+    localStorage.clear();
+    location.href = "http://localhost:8000/index.html"
+    $('#loginSuccess').show()
+    $('#loginSuccessuser').hide()
+});
 
 var search = () => {
     $('#btnSearch').on('click', () => {
         $('#pageloadSearch').empty()
         var bla = $('#txt_search').val();
         $.getJSON('http://localhost:5555/product/searchproduct/' + bla, (data) => {
-            console.log(data)
             $.each(data, (index, items) => {
                 $.getJSON('http://localhost:5555/product/getimage/' + items.Id, (images) => {
-                    console.log('images', images)
                     var item =
                         '<div class="col-md-4 top_brand_left" style="padding-top: 20px">' +
                         '<div class="hover14 column">' +
@@ -59,7 +77,6 @@ $.getJSON("http://localhost:5555/product/toppricenow", (data) => {
     console.log(data)
     $.each(data, (index, items) => {
         $.getJSON('http://localhost:5555/product/getimage/' + items.Id, (images) => {
-            console.log('images', images)
             var item =
                 '<div class="col-md-4 top_brand_left" style="padding-top: 20px">' +
                 '<div class="hover14 column">' +
@@ -71,7 +88,7 @@ $.getJSON("http://localhost:5555/product/toppricenow", (data) => {
                 '<div class="snipcart-item block">' +
                 '<div class="snipcart-thumb">' +
                 ' <span style="margin-left: 60px">Giá mua ngay: ' + Number(items.PricePay).toLocaleString() + '</span>' +
-                '<a href="single.html?id=' + items.Id + '" data-user-id="' + items.Id + '">' +
+                '<a href="single.html?id=' + items.Id + '&idcategory=' + items.id_category + '" data-user-id="' + items.Id + '">' +
                 '<img title=" " height="80" width="80" src="images/' + images[0].Image1 + '" />' +
                 '</a>' +
                 '<p>' + items.ProductName + '</p>' +
@@ -106,7 +123,6 @@ $.getJSON("http://localhost:5555/product/toppricenow", (data) => {
 $.getJSON("http://localhost:5555/product/topturnpay", (data) => {
     $.each(data, (index, items) => {
         $.getJSON('http://localhost:5555/product/getimage/' + items.Id, (images) => {
-            console.log('images', images)
             var item =
                 '<div class="col-md-4 top_brand_left" style="padding-top: 20px">' +
                 '<div class="hover14 column">' +
@@ -162,7 +178,6 @@ $.getJSON("http://localhost:5555/product/topturnpay", (data) => {
 $.getJSON("http://localhost:5555/product/topendtime", (data) => {
     $.each(data, (index, items) => {
         $.getJSON('http://localhost:5555/product/getimage/' + items.Id, (images) => {
-            console.log('images', images)
             var item =
                 '<div class="col-md-4 top_brand_left" style="padding-top: 20px">' +
                 '<div class="hover14 column">' +
@@ -226,7 +241,6 @@ var loadpage = (page) => {
     $.getJSON("http://localhost:5555/product/pagination/" + page, (data) => {
         $.each(data, (index, items) => {
             $.getJSON('http://localhost:5555/product/getimage/' + items.Id, (images) => {
-                console.log('images', images)
                 var item =
                     '<div class="col-md-4 top_brand_left" style="padding-top: 20px">' +
                     '<div class="hover14 column">' +
@@ -275,7 +289,6 @@ var loadpage = (page) => {
                     '</div>' +
                     ' </div>'
                 $('#payment').append(item);
-                console.log(page)
             })
         })
     })

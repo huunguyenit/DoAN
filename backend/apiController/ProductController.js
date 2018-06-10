@@ -90,8 +90,8 @@ router.post('/create', (req, res) => {
     })
 });
 
-router.get('/topturnpay1', (req, res) => {
-    productRepo.GetCategoryFromProduct().then((rows) => {
+router.get('/category-from-product/:id', (req, res) => {
+    productRepo.GetCategoryFromProduct(req.params.id).then((rows) => {
         res.json(rows)
     }).catch((err) => {
         console.log(err);
