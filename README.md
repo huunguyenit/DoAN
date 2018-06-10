@@ -18,7 +18,7 @@
 1. Using jwt to verify user's information.
 2. Using *`.env`* to store all environment variable.
 _Notes: have an .env file at path backend/.env_
-3. Run *``yarn`* or *`npm install`* to install library
+3. Run *`yarn`* or *`npm install`* to install library
 
 ####################################################
 ## Structure of project.
