@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th6 02, 2018 lúc 02:59 AM
+-- Thời gian đã tạo: Th6 11, 2018 lúc 09:58 PM
 -- Phiên bản máy phục vụ: 5.7.19
 -- Phiên bản PHP: 5.6.31
 
@@ -122,6 +122,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `TurnPay` int(11) NOT NULL,
   `Detail` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `AutoUpdate` bit(1) DEFAULT b'0',
+  `id_category` varchar(10) NOT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -129,40 +130,40 @@ CREATE TABLE IF NOT EXISTS `product` (
 -- Đang đổ dữ liệu cho bảng `product`
 --
 
-INSERT INTO `product` (`Id`, `ProductName`, `PriceNow`, `PricePay`, `TimeUp`, `TimeDown`, `Cost`, `Status`, `TurnPay`, `Detail`, `AutoUpdate`) VALUES
-('PDT0000001', 'Sam Sung A8', 10000000, 0, '2018-05-18 11:14:35', '2018-05-21 17:26:20', 100000, b'1', 0, 'Điện thoại SamSung thiết kế mới chống bụi, chống nước IP68', b'0'),
-('PDT0000002', 'Sony Xperia XZ Prenium', 15000000, 0, '2018-05-18 04:41:35', '2018-05-21 16:07:16', 100000, b'1', 0, 'Dòng sản phẩm cao cấp của Sony ra mắt trong năm 2019 đón đầu công nghệ 5.0', b'0'),
-('PDT0000003', 'Asus FX503', 25500000, 0, '2018-05-19 09:19:05', '2018-05-21 17:26:20', 200000, b'1', 0, 'Sản phẩm máy tính cấu hình khủng, giá cực chất', b'0'),
-('PDT0000004', 'Dell Inspiron 15 5570', 16100000, 0, '2018-05-19 00:17:59', '2018-05-24 16:00:00', 500000, b'1', 0, 'Máy tính Dell màn hình 15inch core i5 thế hệ thứ 5', b'0'),
-('PDT0000005', 'iPhone X 64G', 1000000, 0, '2018-05-19 09:10:51', '2018-05-25 00:00:00', 100000, b'1', 0, 'iPhone 10 bộ nhớ trong 64G, tặng kèm hộp khi mua', b'0'),
-('PDT0000006', 'Asus S510UA i5 8250U', 160000, 0, '2018-05-19 09:13:23', '2018-05-26 12:00:00', 100000, b'0', 0, 'Asus S510UA core i5 8250U sản phẩm tầm trung, màn hình 15 inch', b'0'),
-('PDT0000007', 'OPPO F7', 1000, 0, '2018-05-19 09:16:38', '2018-05-24 12:00:00', 10000, b'0', 0, 'Chuyên gia serfile', b'0'),
-('PDT0000008', 'Sam Sung Galaxy S9+ 128G', 1000, 0, '2018-05-19 09:21:34', '2018-05-24 12:00:00', 10000, b'0', 0, 'Đỉnh cao của màn hình tràn viền, bảo mật 3 lớp quét mống mắt, cảm biến vân tay và mật khẩu số', b'0'),
-('PDT0000009', 'Huawei P20 Pro', 1000, 0, '2018-05-19 09:24:55', '2018-05-31 00:00:00', 10000, b'0', 0, 'Sản phẩm Made in China', b'0'),
-('PDT0000010', 'Sony Xperia XZ1', 1000, 0, '2018-05-19 09:25:57', '2018-05-31 00:00:00', 100000, b'0', 6, 'Đứa con của XZ Prenium vô cùng mạnh mẽ', b'0'),
-('PDT0000011', 'BPhone 2017', 1000, 0, '2018-05-19 09:27:13', '2018-05-31 00:00:00', 10000, b'1', 0, 'Đại ca Quãng: \"Thật không thể tin được, đến chúng tôi cũng không thể tin được\"', b'0'),
-('PDT0000012', 'Vivo V9', 1000, 0, '2018-05-19 09:29:06', '2018-05-31 00:00:00', 10000, b'0', 0, 'Vivo V9 vi vu theo gió', b'0'),
-('PDT0000013', 'Dell Insprion 15 5570', 1000000, 0, '2018-05-19 09:33:02', '2018-05-31 00:00:00', 100000, b'1', 0, 'Dòng Insprion cấu hình khủng core i5, ram 8GB, SSD 128GB', b'0'),
-('PDT0000014', 'Dell Vostro 3568', 1000000, 0, '2018-05-19 09:35:11', '2018-05-31 00:00:15', 100000, b'1', 8, 'Sử dụng con chip AMD mới nhất đối thủ đáng gờm của core i3', b'0'),
-('PDT0000015', 'Asus X542UQ', 16990, 0, '2018-05-19 09:36:48', '2018-05-31 00:00:15', 10000, b'1', 0, 'Máy tính dành cho game thủ chuyên nghiệp', b'0'),
-('PDT0000016', 'Acer E5', 17490, 0, '2018-05-19 09:38:45', '2018-05-31 00:00:15', 10000, b'1', 0, 'Sản phẩm khó nhớ đến trên thị trường, mọi người luôn nghĩ là của Asus', b'0'),
-('PDT0000017', 'Asus GL503VD', 26990, 0, '2018-05-19 09:40:16', '2018-05-31 00:00:00', 10000, b'1', 3, 'Máy tính Asus GL503 mang trong mình bộ não core i7, cấu hình cực mạnh mẽ, đồ họa full FPS khi xem phim', b'0'),
-('PDT0000018', 'iPad Pro 10.5inch 64G', 19990, 0, '2018-05-19 09:42:02', '2018-05-31 00:00:00', 10000, b'1', 0, 'Máy tính bảng thương hiệu trái táo khuyết', b'0'),
-('PDT0000019', 'Sam Sung Galaxy Tab A6', 80000, 0, '2018-05-19 09:43:34', '2018-05-31 00:00:00', 10000, b'1', 0, 'Máy tính bảng của dãy ngân hà', b'0'),
-('PDT0000020', 'Huawei MediaPad T3 10', 50000, 0, '2018-05-19 09:44:55', '2018-05-31 00:00:00', 10000, b'1', 0, 'Sản phẩm được sản xuất nguyên chiếc từ Trung Quốc', b'0'),
-('PDT0000021', 'MASERATI Ghibli', 10000000, 0, '2018-05-19 09:48:22', '2018-05-31 00:00:00', 10000000, b'1', 2, 'Dòng xe cao cấp đến từ Italia', b'0'),
-('PDT0000022', 'MASERATI QUATTROPORTE', 100000000, 0, '2018-05-19 09:50:14', '2018-05-31 00:00:00', 1000000, b'1', 0, 'Một chiếc xe mang trong mình dòng máu thể thao với động cơ 100HP', b'0'),
-('PDT0000023', 'Audi A8L', 10000000, 0, '2018-05-19 09:51:10', '2018-05-31 00:00:00', 1000000, b'1', 0, 'Chiếc xe cao cấp mới của hãng Audi phiên bản dài ra mắt trong năm 2019', b'0'),
-('PDT0000024', 'BMW i8', 10000000, 0, '2018-05-19 09:52:01', '2018-05-31 00:00:00', 10000000, b'1', 0, 'Siêu xe của công nghệ tương lai', b'0'),
-('PDT0000025', 'Toyota Camry 2.0', 10000000, 0, '2018-05-19 09:53:03', '2018-07-31 00:00:00', 1000000, b'1', 10, 'Thương hiệu đến từ Nhật, khẳng định chất lượng hàng Nhật bền, đẹp nhưng không rẻ', b'0'),
-('PDT0000026', 'Mercedes-Benz S650 Maybach', 1000000, 0, '2018-05-19 09:54:55', '2018-09-30 00:00:00', 1000000, b'1', 0, 'Đối thủ đáng gờm trong các siêu xe hạng sang phục vụ cho giới thượng lưu', b'0'),
-('PDT0000030', 'Porsche 911 GT2 RS', 69900, 0, '2018-05-19 09:57:03', '2018-12-31 00:00:00', 10000, b'1', 0, 'Dòng xe làm nên tên tuổi của 911', b'0'),
-('PDT0000027', 'CR7 Shirts', 100000, 0, '2018-05-19 10:00:19', '2018-06-30 00:00:00', 10000, b'1', 0, 'Áo thun của CR7 từng mặc trong trận chung kết WC Việt Nam với Bồ năm 2018 tổ chức tại sân Lạch Trây', b'0'),
-('PDT0000028', '2USD', 2000, 0, '2018-05-19 10:02:50', '2018-06-29 00:00:00', 1000, b'1', 0, 'Tờ 2USD được sản xuất kỷ niệm lần đầu sản xuất loại tiền này', b'0'),
-('PDT0000029', 'Sam Sung Smart TV 40inch', 100000, 0, '2018-05-19 10:05:16', '2018-05-27 00:00:00', 10000, b'1', 0, 'Tivi cong, công nghệ của ông lớn SamSung', b'0'),
-('PDT0000031', 'Sony Android OLED TV 4K 65inch', 1000, 0, '2018-05-19 10:07:49', '2018-05-26 00:00:00', 20000, b'1', 0, 'Màn hình OLED độ phân giải 4K', b'0'),
-('PDT0000032', 'Office 365', 10000, 0, '2018-05-19 10:09:33', '2018-06-10 00:00:00', 20000, b'0', 0, 'Phần mềm văn phòng cho mọi người dùng WinOS', b'0'),
-('PDT0000033', 'Corel X7', 100000, 0, '2018-05-19 10:10:48', '2018-05-21 17:26:20', 10000, b'1', 0, 'Phần mềm đồ họa corel x7 dùng trọn đời cho 5 máy tính', b'0');
+INSERT INTO `product` (`Id`, `ProductName`, `PriceNow`, `PricePay`, `TimeUp`, `TimeDown`, `Cost`, `Status`, `TurnPay`, `Detail`, `AutoUpdate`, `id_category`) VALUES
+('PDT0000001', 'Sam Sung A8', 10000000, 0, '2018-05-18 11:14:35', '2018-05-21 17:26:20', 100000, b'1', 0, 'Điện thoại SamSung thiết kế mới chống bụi, chống nước IP68', b'0', 'CMX0000001'),
+('PDT0000002', 'Sony Xperia XZ Prenium', 15000000, 0, '2018-05-18 04:41:35', '2018-05-21 16:07:16', 100000, b'1', 0, 'Dòng sản phẩm cao cấp của Sony ra mắt trong năm 2019 đón đầu công nghệ 5.0', b'0', 'CMX0000001'),
+('PDT0000003', 'Asus FX503', 25500000, 0, '2018-05-19 09:19:05', '2018-05-21 17:26:20', 200000, b'1', 0, 'Sản phẩm máy tính cấu hình khủng, giá cực chất', b'0', 'CMX0000002'),
+('PDT0000004', 'Dell Inspiron 15 5570', 16100000, 0, '2018-05-19 00:17:59', '2018-05-24 16:00:00', 500000, b'1', 0, 'Máy tính Dell màn hình 15inch core i5 thế hệ thứ 5', b'0', 'CMX0000002'),
+('PDT0000005', 'iPhone X 64G', 1000000, 0, '2018-05-19 09:10:51', '2018-05-25 00:00:00', 100000, b'1', 0, 'iPhone 10 bộ nhớ trong 64G, tặng kèm hộp khi mua', b'0', 'CMX0000001'),
+('PDT0000006', 'Asus S510UA i5 8250U', 160000, 0, '2018-05-19 09:13:23', '2018-05-26 12:00:00', 100000, b'0', 0, 'Asus S510UA core i5 8250U sản phẩm tầm trung, màn hình 15 inch', b'0', 'CMX0000002'),
+('PDT0000007', 'OPPO F7', 1000, 0, '2018-05-19 09:16:38', '2018-05-24 12:00:00', 10000, b'0', 0, 'Chuyên gia serfile', b'0', 'CMX0000001'),
+('PDT0000008', 'Sam Sung Galaxy S9+ 128G', 1000, 0, '2018-05-19 09:21:34', '2018-05-24 12:00:00', 10000, b'0', 0, 'Đỉnh cao của màn hình tràn viền, bảo mật 3 lớp quét mống mắt, cảm biến vân tay và mật khẩu số', b'0', 'CMX0000001'),
+('PDT0000009', 'Huawei P20 Pro', 1000, 0, '2018-05-19 09:24:55', '2018-05-31 00:00:00', 10000, b'0', 0, 'Sản phẩm Smart phone Made in China', b'0', 'CMX0000001'),
+('PDT0000010', 'Sony Xperia XZ1', 1000, 0, '2018-05-19 09:25:57', '2018-05-31 00:00:00', 100000, b'0', 6, 'Đứa con của XZ Prenium vô cùng mạnh mẽ', b'0', 'CMX0000001'),
+('PDT0000011', 'BPhone 2017', 1000, 0, '2018-05-19 09:27:13', '2018-05-31 00:00:00', 10000, b'1', 0, 'Đại ca Quãng: \"Thật không thể tin được, đến chúng tôi cũng không thể tin được\"', b'0', 'CMX0000001'),
+('PDT0000012', 'Vivo V9', 1000, 0, '2018-05-19 09:29:06', '2018-05-31 00:00:00', 10000, b'0', 0, 'Vivo V9 vi vu theo gió', b'0', 'CMX0000001'),
+('PDT0000013', 'Dell Insprion 15 5570', 1000000, 0, '2018-05-19 09:33:02', '2018-05-31 00:00:00', 100000, b'1', 0, 'Dòng Insprion cấu hình khủng core i5, ram 8GB, SSD 128GB', b'0', 'CMX0000002'),
+('PDT0000014', 'Dell Vostro 3568', 1000000, 0, '2018-05-19 09:35:11', '2018-05-31 00:00:15', 100000, b'1', 8, 'Sử dụng con chip AMD mới nhất đối thủ đáng gờm của core i3', b'0', 'CMX0000002'),
+('PDT0000015', 'Asus X542UQ', 16990, 0, '2018-05-19 09:36:48', '2018-05-31 00:00:15', 10000, b'1', 0, 'Máy tính dành cho game thủ chuyên nghiệp', b'0', 'CMX0000002'),
+('PDT0000016', 'Acer E5', 17490, 0, '2018-05-19 09:38:45', '2018-05-31 00:00:15', 10000, b'1', 0, 'Sản phẩm khó nhớ đến trên thị trường, mọi người luôn nghĩ là của Asus', b'0', 'CMX0000002'),
+('PDT0000017', 'Asus GL503VD', 26990, 0, '2018-05-19 09:40:16', '2018-05-31 00:00:00', 10000, b'1', 3, 'Máy tính Asus GL503 mang trong mình bộ não core i7, cấu hình cực mạnh mẽ, đồ họa full FPS khi xem phim', b'0', 'CMX0000002'),
+('PDT0000018', 'iPad Pro 10.5inch 64G', 19990, 0, '2018-05-19 09:42:02', '2018-05-31 00:00:00', 10000, b'1', 0, 'Máy tính bảng thương hiệu trái táo khuyết', b'0', 'CMX0000007'),
+('PDT0000019', 'Sam Sung Galaxy Tab A6', 80000, 0, '2018-05-19 09:43:34', '2018-05-31 00:00:00', 10000, b'1', 0, 'Máy tính bảng của dãy ngân hà', b'0', 'CMX0000007'),
+('PDT0000020', 'Huawei MediaPad T3 10', 50000, 0, '2018-05-19 09:44:55', '2018-05-31 00:00:00', 10000, b'1', 0, 'Sản phẩm được sản xuất nguyên chiếc từ Trung Quốc', b'0', 'CMX0000007'),
+('PDT0000021', 'MASERATI Ghibli', 10000000, 0, '2018-05-19 09:48:22', '2018-05-31 00:00:00', 10000000, b'1', 2, 'Dòng xe cao cấp đến từ Italia', b'0', 'CMX0000004'),
+('PDT0000022', 'MASERATI QUATTROPORTE', 100000000, 0, '2018-05-19 09:50:14', '2018-05-31 00:00:00', 1000000, b'1', 0, 'Một chiếc xe mang trong mình dòng máu thể thao với động cơ 100HP', b'0', 'CMX0000004'),
+('PDT0000023', 'Audi A8L', 10000000, 0, '2018-05-19 09:51:10', '2018-05-31 00:00:00', 1000000, b'1', 0, 'Chiếc xe cao cấp mới của hãng Audi phiên bản dài ra mắt trong năm 2019', b'0', 'CMX0000004'),
+('PDT0000024', 'BMW i8', 10000000, 0, '2018-05-19 09:52:01', '2018-05-31 00:00:00', 10000000, b'1', 0, 'Siêu xe của công nghệ tương lai', b'0', 'CMX0000004'),
+('PDT0000025', 'Toyota Camry 2.0', 10000000, 0, '2018-05-19 09:53:03', '2018-07-31 00:00:00', 1000000, b'1', 10, 'Thương hiệu đến từ Nhật, khẳng định chất lượng hàng Nhật bền, đẹp nhưng không rẻ', b'0', 'CMX0000004'),
+('PDT0000026', 'Mercedes-Benz S650 Maybach', 1000000, 0, '2018-05-19 09:54:55', '2018-09-30 00:00:00', 1000000, b'1', 0, 'Đối thủ đáng gờm trong các siêu xe hạng sang phục vụ cho giới thượng lưu', b'0', 'CMX0000004'),
+('PDT0000030', 'Porsche 911 GT2 RS', 69900, 0, '2018-05-19 09:57:03', '2018-12-31 00:00:00', 10000, b'1', 0, 'Dòng xe làm nên tên tuổi của 911', b'0', 'CMX0000004'),
+('PDT0000027', 'CR7 Shirts', 100000, 0, '2018-05-19 10:00:19', '2018-06-30 00:00:00', 10000, b'1', 0, 'Áo thun của CR7 từng mặc trong trận chung kết WC Việt Nam với Bồ năm 2018 tổ chức tại sân Lạch Trây', b'0', 'CMX0000003'),
+('PDT0000028', '2USD', 2000, 0, '2018-05-19 10:02:50', '2018-06-29 00:00:00', 1000, b'1', 0, 'Tờ 2USD được sản xuất kỷ niệm lần đầu sản xuất loại tiền này', b'0', 'CMX0000003'),
+('PDT0000029', 'Sam Sung Smart TV 40inch', 100000, 0, '2018-05-19 10:05:16', '2018-05-27 00:00:00', 10000, b'1', 0, 'Tivi cong, công nghệ của ông lớn SamSung', b'0', 'CMX0000006'),
+('PDT0000031', 'Sony Android OLED TV 4K 65inch', 1000, 0, '2018-05-19 10:07:49', '2018-05-26 00:00:00', 20000, b'1', 0, 'Màn hình OLED độ phân giải 4K', b'0', 'CMX0000006'),
+('PDT0000032', 'Office 365', 10000, 0, '2018-05-19 10:09:33', '2018-06-10 00:00:00', 20000, b'0', 0, 'Phần mềm văn phòng cho mọi người dùng WinOS', b'0', 'CMX0000005'),
+('PDT0000033', 'Corel X7', 100000, 0, '2018-05-19 10:10:48', '2018-05-21 17:26:20', 10000, b'1', 0, 'Phần mềm đồ họa corel x7 dùng trọn đời cho 5 máy tính', b'0', 'CMX0000005');
 
 -- --------------------------------------------------------
 
