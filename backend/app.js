@@ -4,13 +4,16 @@ var bodyParser = require('body-parser')
 var cors = require('cors')
 var morgan = require('morgan')
 var mailer = require('express-mailer')
-var http = require('http');
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.use(express.static('public'))
+
 require('dotenv').config()
 
 
 var AuthRouter = require('./router/auth.router')
 var AdminRouter = require('./router/admin.router')
-
 var product = require('./apiController/ProductController')
 var user = require('./apiController/UserController')
 
@@ -35,6 +38,10 @@ mailer.extend(app, {
     }
 });
 
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/views/frontend/layouts/index.html');
+});
+
 // load auth's router.
 app.use('/auth', AuthRouter)
 
@@ -45,6 +52,11 @@ app.use('/admin', AdminRouter)
 app.use('/product', product)
 app.use('/user', user)
 
-app.listen(5555, () => {
-    console.log("server running at port 5555")
+// server open
+io.on('connection', function (socket) {
+    console.log('a user connected');
+});
+
+http.listen(process.env.DB_PORT, () => {
+    console.log("server running at port ", process.env.DB_PORT)
 })

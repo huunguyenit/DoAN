@@ -14,25 +14,40 @@ router.post('/signin', (request, response) => {
         const responseData = AuthService.authResponse(user)
         response.send(responseData)
     }).catch((err) => {
-        console.log(err);
+        console.log(err)
     })
 })
 
 var isToken = (req, res, next) => {
-    var token = req.headers['token'];
+    var token = req.headers['token']
     if (token) {
         jwt.verify(token, 'secret', (err, payload) => {
             if (err) {
-                res.statusCode = 401;
+                res.statusCode = 401
                 res.json({
                     isError: true,
                     error: err
                 });
             } else {
-                req.tokenPayload = payload;
+                req.tokenPayload = payload
                 next();
             }
         })
+    } else {
+        res.statusCode = 403
+        res.json({
+            isError: true,
+            msg: 'token not found'
+        })
+    }
+}
+
+var decoded = (req, res, next) => {
+    var token = req.headers['token']
+
+    if (token) {
+        var a = jwt.decode(token, {complete: true})
+        return Promise.resolve(a)
     } else {
         res.statusCode = 403;
         res.json({
@@ -46,6 +61,17 @@ router.get('/secured', isToken, (req, res) => {
     res.json({
         payload: req.tokenPayload
     })
+})
+
+router.get('/decode', decoded, (req, res) => {
+    console.log(here)
+    decoded.then((user) => {
+        console.log('a', user)
+        res.json({
+            payload: user
+        })
+    })
+    
 })
 
 router.get('/signup', (request, response) => {
