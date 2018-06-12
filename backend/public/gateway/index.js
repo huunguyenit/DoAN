@@ -1,18 +1,18 @@
 var url_string = window.location.href;
 var url = new URL(url_string);
 var c = url.searchParams.get("email");
-if(c !== null){
+if (c !== null) {
     $('#loginSuccess').hide()
     $('#username').html(c)
     $('#loginSuccessuser').show()
-    
+
 }
-else{
+else {
     $('#loginSuccess').show()
     $('#loginSuccessuser').hide()
 }
 
-$('#logout').click(function(){
+$('#logout').click(function () {
     localStorage.clear();
     location.href = "http://localhost:8000/index.html"
     $('#loginSuccess').show()
@@ -20,7 +20,9 @@ $('#logout').click(function(){
 });
 
 var search = () => {
+    $('#btnSearch').hide()
     $('#btnSearch').on('click', () => {
+        $('#btnSearch').show()
         $('#pageloadSearch').empty()
         var bla = $('#txt_search').val();
         $.getJSON('http://localhost:5555/product/searchproduct/' + bla, (data) => {
@@ -74,6 +76,7 @@ var search = () => {
 search()
 
 $.getJSON("http://localhost:5555/product/toppricenow", (data) => {
+    var socket = io('http://localhost:5555');
     console.log(data)
     $.each(data, (index, items) => {
         $.getJSON('http://localhost:5555/product/getimage/' + items.Id, (images) => {

@@ -29,8 +29,7 @@ $("#btnlogin").on("click", () => {
                 }
             }).done((data) => {
                 alert('here', data)
-            })
-                       
+            })          
             location.href = 'http://localhost:8000/index.html?email='+body.email
         }
     })

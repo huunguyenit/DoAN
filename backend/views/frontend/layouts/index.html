@@ -32,6 +32,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<script type="text/javascript" src="js/move-top.js"></script>
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="js/easing.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket = io('http://localhost:8000');
+	</script>
 	<script type="text/javascript">
 		jQuery(document).ready(function ($) {
 			$(".scroll").click(function (event) {
@@ -58,7 +62,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</ul>
 				<ul id='loginSuccessuser' style="disphay:none;">
 					<li>
-						<a href=""> Xin chào : <span id='username'></span> </a>
+						<a href=""> Xin chào :
+							<span id='username'></span>
+						</a>
 					</li>
 					<li>
 						<a id='logout' href="index.html">Đăng xuất</a>
@@ -81,7 +87,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="logo_products">
 		<div class="container">
 			<div class="w3ls_logo_products_left1">
-				
+
 			</div>
 			<div class="w3ls_logo_products_left">
 				<h1>
@@ -90,11 +96,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<div class="w3l_search">
 				<!-- <form action="location.href" method="post"> -->
-					<input id='txt_search' type="search" name="Search" placeholder="Search for a Product..." required="">
-					<button id='btnSearch' type="submit" class="btn btn-default search" aria-label="Left Align">
-						<span class="fa fa-search" aria-hidden="true"> </span>
-					</button>
-					<div class="clearfix"></div>
+				<input id='txt_search' type="search" name="Search" placeholder="Search for a Product..." required="">
+				<button id='btnSearch' type="submit" class="btn btn-default search" aria-label="Left Align">
+					<span class="fa fa-search" aria-hidden="true"> </span>
+				</button>
+				<div class="clearfix"></div>
 				<!-- </form> -->
 			</div>
 
@@ -126,23 +132,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<!-- main-slider -->
 		<ul id="demo1">
 			<li>
-				<img src="images/11.jpg" alt="" />
+				<img src="images/banner1.png" alt="" />
 				<!--Slider Description example-->
 				<div class="slide-desc">
-					<h3>Buy Rice Products Are Now On Line With Us</h3>
 				</div>
 			</li>
 			<li>
-				<img src="images/22.jpg" alt="" />
+				<img src="images/banner2.png" alt="" />
 				<div class="slide-desc">
-					<h3>Whole Spices Products Are Now On Line With Us</h3>
 				</div>
 			</li>
 
 			<li>
-				<img src="images/44.jpg" alt="" />
+				<img src="images/banner3.png" alt="" />
 				<div class="slide-desc">
-					<h3>Whole Spices Products Are Now On Line With Us</h3>
 				</div>
 			</li>
 		</ul>
@@ -163,7 +166,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div id="pageloadSearch" class="agile_top_brands_grids">
 									<div class="clearfix"> </div>
 								</div>
-								<div class="agile_top_brands_grids">	
+								<div class="agile_top_brands_grids">
 									<div class="clearfix"> </div>
 								</div>
 							</div>
@@ -198,10 +201,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div id="loadTopprice" class="agile_top_brands_grids">
 									<div class="clearfix"> </div>
 								</div>
-								<div class="agile_top_brands_grids">	
+								<div class="agile_top_brands_grids">
 									<div class="clearfix"> </div>
 								</div>
-								</div>
+							</div>
 							<div role="tabpanel" class="tab-pane fade" id="tours" aria-labelledby="tours-tab">
 								<div class="agile-tp">
 									<h5>This week</h5>
@@ -578,7 +581,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- main slider-banner -->
 	<script src="js/skdslider.min.js"></script>
 	<script src="gateway/index.js"></script>
-	<script src="gateway/single.js"></script>
 	<link href="css/skdslider.css" rel="stylesheet">
 	<script type="text/javascript">
 		jQuery(document).ready(function () {

@@ -33,7 +33,7 @@ exports.signup = (params) => {
     }
 
     params = Object.assign(defaultParams, params)
-    
+
     if (!params.email || !params.password || !params.address || !params.fullname) {
         let error = new Error('Validation fail, input is invalid.')
         return Promise.reject(error)
@@ -41,7 +41,7 @@ exports.signup = (params) => {
 
     let query = `INSERT INTO user (Email, Password, FullName, Address, isAdmin) VALUES('${params.email}', '${params.password}', '${params.fullname}', '${params.address}', ${params.idAdmin})`
     let insert = mysql.insert(query)
-    return insert 
+    return insert
         .then(result => {
             return Promise.resolve(params)
         })
@@ -51,13 +51,19 @@ exports.signup = (params) => {
 }
 
 exports.signin = (body) => {
-    const ACTIVE = 1;
-    let query = `SELECT * FROM user WHERE Email = '${body.email}' AND PassWord = '${body.password}' AND isReal = ${ACTIVE}`
-    return mysql.load(query)
+
+    if (!body.email || !body.password) {
+        let error = new Error('Email & password can\'t be empty')
+        return Promise.reject(error)
+    } else {
+        const ACTIVE = 1;
+        let query = `SELECT * FROM user WHERE Email = '${body.email}' AND PassWord = '${body.password}' AND isReal = ${ACTIVE}`
+        return mysql.load(query)
+    }
 }
 
 exports.authResponse = (user) => {
-    if(user[0]) {
+    if (user[0]) {
         let payload = {
             'email': user[0].Email,
             'isAdmin': user[0].isAdmin ? user[0].isAdmin.data : 0
