@@ -84,7 +84,6 @@ $('#btnRegister').on('click', function () {
         if (data.success) {
             swal("Good job!", "You clicked the button!", "success");
         } else {
-            console.log('duyyyyyyyyyy')
             swal("Invalid captcha.", "You clicked the button!", "error");
         }
     }).fail((xhr, textStatus, err) => {

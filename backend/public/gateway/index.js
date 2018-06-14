@@ -1,74 +1,85 @@
-var url_string = window.location.href;
-var url = new URL(url_string);
-var c = url.searchParams.get("email");
-if (c !== null) {
-    $('#loginSuccess').hide()
-    $('#username').html(c)
-    $('#loginSuccessuser').show()
 
-}
-else {
-    $('#loginSuccess').show()
-    $('#loginSuccessuser').hide()
-}
+$.ajax({
+    url: 'http://localhost:5555/auth/secured',
+    dataType: 'json',
+    timeout: 10000,
+    headers: {
+        'token': localStorage.access_token
+    }
+}).done((data) => {
+    var c = data.payload.email
+    if (c !== null) {
+        $('#loginSuccess').hide()
+        $('#username').html(c)
+        $('#loginSuccessuser').show()
+    }
+    else {
+        $('#loginSuccess').show()
+        $('#loginSuccessuser').hide()
+    }
+})
 
 $('#logout').click(function () {
     localStorage.clear();
-    location.href = "http://localhost:8000/index.html"
     $('#loginSuccess').show()
     $('#loginSuccessuser').hide()
 });
 
+
 var search = () => {
-    $('#btnSearch').hide()
+    $('#isSearch').hide()
     $('#btnSearch').on('click', () => {
-        $('#btnSearch').show()
+        $('#isSearch').show()
         $('#pageloadSearch').empty()
         var bla = $('#txt_search').val();
         $.getJSON('http://localhost:5555/product/searchproduct/' + bla, (data) => {
-            $.each(data, (index, items) => {
-                $.getJSON('http://localhost:5555/product/getimage/' + items.Id, (images) => {
-                    var item =
-                        '<div class="col-md-4 top_brand_left" style="padding-top: 20px">' +
-                        '<div class="hover14 column">' +
-                        '<div class="agile_top_brand_left_grid">' +
-                        '<div class="agile_top_brand_left_grid_pos">' +
-                        '</div>' +
-                        '<div class="agile_top_brand_left_grid1">' +
-                        '<figure>' +
-                        '<div class="snipcart-item block">' +
-                        '<div class="snipcart-thumb">' +
-                        ' <span style="margin-left: 60px">Giá mua ngay: ' + Number(items.PricePay).toLocaleString() + '</span>' +
-                        '<a href="products.html">' +
-                        '<img title=" " height="80" width="80" src="images/' + images[0].Image1 + '" />' +
-                        '</a>' +
-                        '<p>' + items.ProductName + '</p>' +
-                        '<div class="stars">' +
-                        ' <i class="fa fa-star blue-star" aria-hidden="true"></i>' +
-                        '<i class="fa fa-star blue-star" aria-hidden="true"></i>' +
-                        '<i class="fa fa-star blue-star" aria-hidden="true"></i>' +
-                        '<i class="fa fa-star blue-star" aria-hidden="true"></i>' +
-                        '<i class="fa fa-star gray-star" aria-hidden="true"></i>' +
-                        '</div>' +
-                        ' <h4>' + Number(items.PriceNow).toLocaleString() +
-                        ' </h4>' +
-                        ' </div>' +
-                        '<div class="snipcart-details top_brand_home_details">' +
-                        '<form action="" method="post">' +
-                        ' <fieldset>' +
-                        '<input type="submit" name="submit" value="Add to cart" class="button" />' +
-                        ' </fieldset>' +
-                        ' </form>' +
-                        '</div>' +
-                        ' </div>' +
-                        '</figure>' +
-                        ' </div>' +
-                        ' </div>' +
-                        '</div>' +
-                        ' </div>'
-                    $('#pageloadSearch').append(item);
+            console.log('aaaaaaa', data)
+            if (data = [0]) {
+                var item = '<div style="padding: 30px" >Không có sản phẩm bạn cần tìm, Vui lòng tìm tên sản phẩm khác</div>'
+                $('#pageloadSearch').append(item);
+            } else {
+                $.each(data, (index, items) => {
+                    $.getJSON('http://localhost:5555/product/getimage/' + items.Id, (images) => {
+                        var item =
+                            '<div class="col-md-4 top_brand_left" style="padding-top: 20px">' +
+                            '<div class="hover14 column">' +
+                            '<div class="agile_top_brand_left_grid">' +
+                            '<div class="agile_top_brand_left_grid_pos">' +
+                            '</div>' +
+                            '<div class="agile_top_brand_left_grid1">' +
+                            '<figure>' +
+                            '<div class="snipcart-item block">' +
+                            '<div class="snipcart-thumb">' +
+                            ' <span style="margin-left: 60px">Giá mua ngay: ' + Number(items.PricePay).toLocaleString() + '</span>' +
+                            '<a href="products.html">' +
+                            '<img title=" " height="80" width="80" src="images/' + images[0].Image1 + '" />' +
+                            '</a>' +
+                            '<p>' + items.ProductName + '</p>' +
+                            '<div class="stars">' +
+                            ' <i class="fa fa-star blue-star" aria-hidden="true"></i>' +
+                            '<i class="fa fa-star blue-star" aria-hidden="true"></i>' +
+                            '<i class="fa fa-star blue-star" aria-hidden="true"></i>' +
+                            '<i class="fa fa-star blue-star" aria-hidden="true"></i>' +
+                            '<i class="fa fa-star gray-star" aria-hidden="true"></i>' +
+                            '</div>' +
+                            ' <h4>' + Number(items.PriceNow).toLocaleString() +
+                            ' </h4>' +
+                            ' </div>' +
+                            '<div class="snipcart-details top_brand_home_details">' +
+                            '<a href="single?id=' + items.Id + '&idcategory=' + items.id_category + '">Đấu giá</a>' +
+                            ' </fieldset>' +
+                            ' </form>' +
+                            '</div>' +
+                            ' </div>' +
+                            '</figure>' +
+                            ' </div>' +
+                            ' </div>' +
+                            '</div>' +
+                            ' </div>'
+                        $('#pageloadSearch').append(item);
+                    })
                 })
-            })
+            }
         })
     })
 }
@@ -91,7 +102,7 @@ $.getJSON("http://localhost:5555/product/toppricenow", (data) => {
                 '<div class="snipcart-item block">' +
                 '<div class="snipcart-thumb">' +
                 ' <span style="margin-left: 60px">Giá mua ngay: ' + Number(items.PricePay).toLocaleString() + '</span>' +
-                '<a href="single.html?id=' + items.Id + '&idcategory=' + items.id_category + '" data-user-id="' + items.Id + '">' +
+                '<a href="single?id=' + items.Id + '&idcategory=' + items.id_category + '" data-user-id="' + items.Id + '">' +
                 '<img title=" " height="80" width="80" src="images/' + images[0].Image1 + '" />' +
                 '</a>' +
                 '<p>' + items.ProductName + '</p>' +
@@ -106,9 +117,7 @@ $.getJSON("http://localhost:5555/product/toppricenow", (data) => {
                 ' </h4>' +
                 ' </div>' +
                 '<div class="snipcart-details top_brand_home_details">' +
-                '<form action="http://localhost:8000/single.html">' +
-                ' <fieldset>' +
-                '<input type="submit" name="submit" value="Add to cart" class="button" />' +
+                '<a href="single?id=' + items.Id + '&idcategory=' + items.id_category + '">Đấu giá</a>' +
                 ' </fieldset>' +
                 ' </form>' +
                 '</div>' +
@@ -137,7 +146,7 @@ $.getJSON("http://localhost:5555/product/topturnpay", (data) => {
                 '<div class="snipcart-item block">' +
                 '<div class="snipcart-thumb">' +
                 ' <span style="margin-left: 60px">Giá mua ngay: ' + Number(items.PricePay).toLocaleString() + '</span>' +
-                '<a href="single.html?id=' + items.Id + '" data-user-id="' + items.Id + '">' +
+                '<a href="single?id=' + items.Id + '" data-user-id="' + items.Id + '">' +
                 '<img title=" " height="80" width="80" src="images/' + images[0].Image1 + '" />' +
                 '</a>' +
                 '<p>' + items.ProductName + '</p>' +
@@ -152,20 +161,7 @@ $.getJSON("http://localhost:5555/product/topturnpay", (data) => {
                 ' </h4>' +
                 ' </div>' +
                 '<div class="snipcart-details top_brand_home_details">' +
-                '<form action="#" method="post">' +
-                ' <fieldset>' +
-                '<input type="hidden" name="cmd" value="_cart" />' +
-                ' <input type="hidden" name="add" value="1" />' +
-                '<input type="hidden" name="business" value=" " />' +
-                '<input type="hidden" name="item_name" value="Fortune Sunflower Oil" />' +
-                ' <input type="hidden" name="amount" value="35.99" />' +
-                '<input type="hidden" name="discount_amount" value="1.00" />' +
-                '<input type="hidden" name="currency_code" value="USD" />' +
-                '<input type="hidden" name="return" value=" " />' +
-                '<input type="hidden" name="cancel_return" value=" " />' +
-                '<input type="submit" name="submit" value="Add to cart" class="button" />' +
-                ' </fieldset>' +
-                ' </form>' +
+                '<a href="single?id=' + items.Id + '&idcategory=' + items.id_category + '">Đấu giá</a>' +
                 '</div>' +
                 ' </div>' +
                 '</figure>' +
@@ -192,7 +188,7 @@ $.getJSON("http://localhost:5555/product/topendtime", (data) => {
                 '<div class="snipcart-item block">' +
                 '<div class="snipcart-thumb">' +
                 ' <span style="margin-left: 60px">Giá mua ngay: ' + Number(items.PricePay).toLocaleString() + '</span>' +
-                '<a href="single.html?id=' + items.Id + '" data-user-id="' + items.Id + '">' +
+                '<a href="single?id=' + items.Id + '" data-user-id="' + items.Id + '">' +
                 '<img title=" " height="80" width="80" src="images/' + images[0].Image1 + '" />' +
                 '</a>' +
                 '<p>' + items.ProductName + '</p>' +
@@ -207,20 +203,7 @@ $.getJSON("http://localhost:5555/product/topendtime", (data) => {
                 ' </h4>' +
                 ' </div>' +
                 '<div class="snipcart-details top_brand_home_details">' +
-                '<form action="#" method="post">' +
-                ' <fieldset>' +
-                '<input type="hidden" name="cmd" value="_cart" />' +
-                ' <input type="hidden" name="add" value="1" />' +
-                '<input type="hidden" name="business" value=" " />' +
-                '<input type="hidden" name="item_name" value="Fortune Sunflower Oil" />' +
-                ' <input type="hidden" name="amount" value="35.99" />' +
-                '<input type="hidden" name="discount_amount" value="1.00" />' +
-                '<input type="hidden" name="currency_code" value="USD" />' +
-                '<input type="hidden" name="return" value=" " />' +
-                '<input type="hidden" name="cancel_return" value=" " />' +
-                '<input type="submit" name="submit" value="Add to cart" class="button" />' +
-                ' </fieldset>' +
-                ' </form>' +
+                '<a href="single?id=' + items.Id + '&idcategory=' + items.id_category + '">Đấu giá</a>' +
                 '</div>' +
                 ' </div>' +
                 '</figure>' +
@@ -255,7 +238,7 @@ var loadpage = (page) => {
                     '<div class="snipcart-item block">' +
                     '<div class="snipcart-thumb">' +
                     ' <span style="margin-left: 60px">Giá mua ngay: ' + Number(items.PricePay).toLocaleString() + '</span>' +
-                    '<a href="single.html?id=' + items.Id + '" data-user-id="' + items.Id + '">' +
+                    '<a href="single?id=' + items.Id + '" data-user-id="' + items.Id + '">' +
                     '<img title=" " height="80" width="80" src="images/' + images[0].Image1 + '" />' +
                     '</a>' +
                     '<p>' + items.ProductName + '</p>' +
@@ -270,20 +253,7 @@ var loadpage = (page) => {
                     ' </h4>' +
                     ' </div>' +
                     '<div class="snipcart-details top_brand_home_details">' +
-                    '<form action="#" method="post">' +
-                    ' <fieldset>' +
-                    '<input type="hidden" name="cmd" value="_cart" />' +
-                    ' <input type="hidden" name="add" value="1" />' +
-                    '<input type="hidden" name="business" value=" " />' +
-                    '<input type="hidden" name="item_name" value="Fortune Sunflower Oil" />' +
-                    ' <input type="hidden" name="amount" value="35.99" />' +
-                    '<input type="hidden" name="discount_amount" value="1.00" />' +
-                    '<input type="hidden" name="currency_code" value="USD" />' +
-                    '<input type="hidden" name="return" value=" " />' +
-                    '<input type="hidden" name="cancel_return" value=" " />' +
-                    '<input type="submit" name="submit" value="Add to cart" class="button" />' +
-                    ' </fieldset>' +
-                    ' </form>' +
+                    '<a href="single?id=' + items.Id + '&idcategory=' + items.id_category + '">Đấu giá</a>' +
                     '</div>' +
                     ' </div>' +
                     '</figure>' +

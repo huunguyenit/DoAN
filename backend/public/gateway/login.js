@@ -1,3 +1,5 @@
+
+
 $("#btnlogin").on("click", () => {
     var _email = $("#txtEmail").val();
     var _password = $("#txtPassword").val();
@@ -28,9 +30,8 @@ $("#btnlogin").on("click", () => {
                     'token': localStorage.access_token
                 }
             }).done((data) => {
-                alert('here', data)
-            })          
-            location.href = 'http://localhost:8000/index.html?email='+body.email
+                location.href = '/'      
+            })
         }
     })
 })
