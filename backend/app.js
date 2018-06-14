@@ -42,6 +42,18 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + '/views/frontend/layouts/index.html');
 });
 
+app.get('/single', function (req, res) {
+    res.sendFile(__dirname + '/views/frontend/layouts/single.html');
+});
+
+app.get('/login', function (req, res) {
+    res.sendFile(__dirname + '/views/frontend/layouts/login.html');
+});
+
+app.get('/register', function (req, res) {
+    res.sendFile(__dirname + '/views/frontend/layouts/register.html');
+});
+
 // load auth's router.
 app.use('/auth', AuthRouter)
 
