@@ -25,7 +25,6 @@ $('#logout').click(function () {
     $('#loginSuccessuser').hide()
 });
 
-
 var search = () => {
     $('#isSearch').hide()
     $('#btnSearch').on('click', () => {
@@ -221,6 +220,8 @@ $('#loadmore').on('click', () => {
     page = page + 1
     loadpage(page);
 })
+
+socket.emit("send-price-now", "hello");
 
 
 var loadpage = (page) => {

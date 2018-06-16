@@ -3,6 +3,12 @@ var productRepo = require('../response/ProductQData');
 
 var router = express.Router();
 
+// var CronJob = require('cron').CronJob;
+// new CronJob('* * * * * *', function() {
+//   console.log('You will see this message every second');
+// }, null, true, 'America/Los_Angeles');
+
+
 router.get('/pagination/:page', (req, res) => {
     console.log('page`11111111111111111:', req.params.page)
     productRepo.LoadPage(req.params.page).then(rows => {

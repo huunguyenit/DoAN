@@ -3,6 +3,7 @@ var url_string = window.location.href;
 var url = new URL(url_string);
 var c = url.searchParams.get("id");
 var d = url.searchParams.get("idcategory");
+var socket = io.connect("localhost:5555")
 
 $.ajax({
     url: 'http://localhost:5555/auth/secured',
@@ -70,20 +71,56 @@ var showDetail = () => {
                 '</div>' +
                 '  <div class="w3agile_description">' +
                 '<h4>Description :</h4><br/>' +
-                '<span>'+ data[0].Detail + '</span>' +
+                '<span>' + data[0].Detail + '</span>' +
                 '</div>' +
                 '<div class="snipcart-item block">' +
                 '<div class="snipcart-thumb agileinfo_single_right_snipcart">' +
-                '<h4 class="m-sing">Giá hiện tại:<span style="font-size: 140%"> ' + data[0].PricePay + '</span><br/>Giá mua ngay: <span style="font-size: 140%"> ' + data[0].PriceNow + '</span></h4>' +
+                '<h4 class="m-sing">Giá hiện tại:<span style="font-size: 140%" id="priceNow"> ' + data[0].PricePay + '</span><br/>Giá mua ngay: <span style="font-size: 140%"> ' + data[0].PriceNow + '</span></h4>' +
                 '</div>' +
                 '<div class="snipcart-details agileinfo_single_right_details">' +
                 '</div>' +
-                '<a>Đấu giá ngay </a>' +
-                '<input />' +
+                '<a>Đấu giá ngay với: <span style="font-size: 140%" id="priceCostShow">' + data[0].Cost + '</span> </a><br/><br/>' +
+                '<button id="user-auction"  onclick="myFunction()" >Đấu Giá</button>' +
+                '<input type="hidden" id="pricecost" value="' + data[0].Cost + '"/> ' +
                 '</div>' +
                 '</div >'
             $('#loadDetail').append(item);
         })
+    })
+}
+
+function myFunction() {
+    var sumaution = parseInt($('#priceCostShow').html());
+    sumaution = parseInt($('#priceNow').html()) + parseInt($('#pricecost').val());
+    $('#priceNow').html(sumaution);
+    $.ajax({
+        url: 'http://localhost:5555/single/auctionPrice',
+        type: 'POST',
+        dataType: 'json',
+        timeout: '10000',
+        data: {
+            id_product: c,
+            username: $('#username').html(),
+            price: sumaution
+        }
+    })
+    $.ajax({
+        url: 'http://localhost:5555/single/updatePriceNow',
+        type: 'PUT',
+        dataType: 'json',
+        timeout: '10000',
+        data: {
+            pricePay: sumaution,
+            id: c
+        }
+    }).done((data) => {
+        socket.emit("client-send-price-now", {
+            pricePay: sumaution,
+            id: c
+        });
+    })
+    socket.on("server-send-priceNowbyId", (data) => {
+        $('#priceNow').html(data.pricePay)
     })
 }
 
@@ -102,7 +139,7 @@ var getCategoryDetail = () => {
                     '<figure>' +
                     '<div class="snipcart-item block">' +
                     '<div class="snipcart-thumb">' +
-                    ' <a href="products.html"><img height="150" width="150" title=" " alt=" " src="images/'+ images[0].Image1 +'"></a>		' +
+                    ' <a href="products.html"><img height="150" width="150" title=" " alt=" " src="images/' + images[0].Image1 + '"></a>		' +
                     '<p>' + items.ProductName + '</p>' +
                     '<div class="stars">' +
                     '<i class="fa fa-star blue-star" aria-hidden="true"></i>' +
@@ -111,7 +148,7 @@ var getCategoryDetail = () => {
                     '<i class="fa fa-star blue-star" aria-hidden="true"></i>' +
                     '<i class="fa fa-star gray-star" aria-hidden="true"></i>' +
                     ' </div>' +
-                    ' <h4>' + Number(items.PriceNow).toLocaleString()+ '</h4>' +
+                    ' <h4>' + Number(items.PriceNow).toLocaleString() + '</h4>' +
                     '</div>' +
                     '<div class="snipcart-details top_brand_home_details">' +
                     '<a href="single?id=' + items.Id + '&idcategory=' + items.id_category + '">Đấu giá</a>' +

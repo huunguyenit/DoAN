@@ -65,4 +65,3 @@ exports.GetImage = function (id) {
 
     return data.load(sql);
 }
-
