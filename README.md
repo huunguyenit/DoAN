@@ -1,17 +1,13 @@
 
-`
+````
 				AUCTION
-`
+````
 
 
 ``
-	Run front-end:
+	Run project: npm start
 ``
 
-```
-	python -m SimpleHTTPServer 8000
-```
-``
 
 ####################################################
 ## Initial project.

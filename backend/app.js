@@ -16,6 +16,7 @@ var AuthRouter = require('./router/auth.router')
 var AdminRouter = require('./router/admin.router')
 var product = require('./apiController/ProductController')
 var user = require('./apiController/UserController')
+var single = require('./apiController/SingleController')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -63,10 +64,18 @@ app.use('/admin', AdminRouter)
 // load product's router.
 app.use('/product', product)
 app.use('/user', user)
+app.use('/single', single)
 
-// server open
+// socketio server open
 io.on('connection', function (socket) {
     console.log('a user connected');
+    socket.on("disconnect", function () {
+        console.log(socket.id + "ngat ket noi !!!!");
+    })
+    socket.on("client-send-price-now", (data) => {
+        console.log(socket.id + "send data:", data)
+        io.sockets.emit("server-send-priceNowbyId", data)
+    })
 });
 
 http.listen(process.env.DB_PORT, () => {

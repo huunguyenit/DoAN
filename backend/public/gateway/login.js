@@ -29,7 +29,7 @@ $("#btnlogin").on("click", () => {
                 headers: {
                     'token': localStorage.access_token
                 }
-            }).done((data) => {
+            }).done((data) => { 
                 location.href = '/'      
             })
         }

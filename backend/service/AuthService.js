@@ -51,7 +51,6 @@ exports.signup = (params) => {
 }
 
 exports.signin = (body) => {
-
     if (!body.email || !body.password) {
         let error = new Error('Email & password can\'t be empty')
         return Promise.reject(error)

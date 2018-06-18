@@ -1,5 +1,5 @@
 var mysql = require('mysql')
-var	q = require('q');
+var q = require('q');
 
 var configdb = {
 	host: 'localhost',
@@ -8,10 +8,10 @@ var configdb = {
 	database: 'dbsitedaugia'
 }
 
-exports.load = function(sql) {
+exports.load = function (sql) {
 	var d = q.defer();
 
-    var cn = mysql.createConnection(configdb);
+	var cn = mysql.createConnection(configdb);
 
 	cn.connect((error) => {
 		if (error) {
@@ -20,7 +20,7 @@ exports.load = function(sql) {
 			console.log('connection database success !')
 		}
 	});
-	
+
 	cn.query(sql, function (error, rows, fields) {
 		if (error) {
 			d.reject(error);
@@ -33,9 +33,9 @@ exports.load = function(sql) {
 	return d.promise;
 }
 
-exports.save = function(sql) {
-	
-    var cn = mysql.createConnection(configdb);
+exports.save = function (sql) {
+
+	var cn = mysql.createConnection(configdb);
 
 	cn.connect((error) => {
 		if (error) {
@@ -59,7 +59,7 @@ exports.save = function(sql) {
 
 exports.insert = function (sql) {
 	var d = q.defer();
-	
+
 	var cn = mysql.createConnection(configdb);
 
 	cn.connect();
@@ -73,12 +73,31 @@ exports.insert = function (sql) {
 		cn.end();
 	});
 
-	return d.promise;	
+	return d.promise;
+}
+
+exports.update = function (sql) {
+	var d = q.defer();
+
+	var cn = mysql.createConnection(configdb);
+
+	cn.connect();
+	cn.query(sql, function (error, value) {
+		if (error) {
+			d.reject(error);
+		} else {
+			d.resolve(value.insertId);
+		}
+
+		cn.end()
+	})
+	
+	return d.promise;
 }
 
 exports.delete = function (sql) {
 	var d = q.defer();
-	
+
 	var cn = mysql.createConnection(configdb);
 
 	cn.connect();
@@ -92,5 +111,5 @@ exports.delete = function (sql) {
 		cn.end();
 	});
 
-	return d.promise;	
+	return d.promise;
 }

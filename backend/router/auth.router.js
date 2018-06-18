@@ -2,19 +2,18 @@ var express = require('express')
 var AuthService = require('../service/AuthService')
 var jwt = require('jsonwebtoken');
 
-
 let router = express.Router()
 
 router.get('', (request, response) => {
     response.send('welcome to auth module')
 })
 
-router.post('/signin', (request, response) => {
+router.post('/signin', (request, res) => {
     AuthService.signin(request.body).then((user) => {
         const responseData = AuthService.authResponse(user)
-        response.send(responseData)
+        res.send(responseData)
     }).catch((err) => {
-        console.log(err)
+        res.send(err)
     })
 })
 
