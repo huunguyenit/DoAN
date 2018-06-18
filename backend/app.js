@@ -11,7 +11,6 @@ app.use(express.static('public'))
 
 require('dotenv').config()
 
-
 var AuthRouter = require('./router/auth.router')
 var AdminRouter = require('./router/admin.router')
 var product = require('./apiController/ProductController')
