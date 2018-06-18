@@ -87,41 +87,45 @@ var showDetail = () => {
 }
 
 function myFunction() {
-    var sumaution = parseInt($('#priceCostShow').html());
-    sumaution = parseInt($('#priceNow').html()) + parseInt($('#pricecost').val());
-    $('#priceNow').html(sumaution);
-    $.ajax({
-        url: 'http://localhost:5555/single/auctionPrice',
-        type: 'POST',
-        dataType: 'json',
-        timeout: '10000',
-        data: {
-            id_product: c,
-            username: $('#username').html(),
-            price: sumaution
-        }
-    })
-    $.ajax({
-        url: 'http://localhost:5555/single/updatePriceNow',
-        type: 'PUT',
-        dataType: 'json',
-        timeout: '10000',
-        data: {
-            pricePay: sumaution,
-            id: c
-        }
-    }).done((data) => {
-        socket.emit("client-send-price-now", {
-            pricePay: sumaution,
-            id: c,
-            username: $('#username').html()
-        });
-    })
-    socket.on("server-send-priceNowbyId", (data) => {
-        console.log('aaaaaaaaaaaaaaaaaaa', data)
-        $('#priceNow').html(data.pricePay)
-        $('#topAuction').html(data.username)
-    })
+    if (!localStorage.access_token) {
+        location.replace('/login')
+    } else {
+        var sumaution = parseInt($('#priceCostShow').html());
+        sumaution = parseInt($('#priceNow').html()) + parseInt($('#pricecost').val());
+        $('#priceNow').html(sumaution);
+        $.ajax({
+            url: 'http://localhost:5555/single/auctionPrice',
+            type: 'POST',
+            dataType: 'json',
+            timeout: '10000',
+            data: {
+                id_product: c,
+                username: $('#username').html(),
+                price: sumaution
+            }
+        })
+        $.ajax({
+            url: 'http://localhost:5555/single/updatePriceNow',
+            type: 'PUT',
+            dataType: 'json',
+            timeout: '10000',
+            data: {
+                pricePay: sumaution,
+                id: c
+            }
+        }).done((data) => {
+            socket.emit("client-send-price-now", {
+                pricePay: sumaution,
+                id: c,
+                username: $('#username').html()
+            });
+        })
+        socket.on("server-send-priceNowbyId", (data) => {
+            console.log('aaaaaaaaaaaaaaaaaaa', data)
+            $('#priceNow').html(data.pricePay)
+            $('#topAuction').html(data.username)
+        })
+    }
 }
 
 var getCategoryDetail = () => {
