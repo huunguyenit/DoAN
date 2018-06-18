@@ -45,7 +45,7 @@ exports.AutoAuction = function(Id) {
 }
 
 exports.AddProduct = function(pd) {
-    var sql = `INSERT INTO product (Id, ProductName, PriceNow, PricePay, TimeUp, Cost, Status, TurnPay, Detail) VALUES ('${pd.Id}','${pd.ProductName}' ,'${pd.PriceNow}','${pd.PricePay}', NOW(),'${pd.Cost}','${pd.Status}','${pd.TurnPay}','${pd.Detail}') `;
+    var sql = `INSERT INTO product (Id, ProductName, PriceNow, PricePay, TimeUp, TimeDown, Cost, Status, TurnPay, Detail) VALUES ('${pd.Id}','${pd.ProductName}' ,'${pd.PriceNow}','${pd.PricePay}', NOW(), NOW() + INTERVAL 7 DAY, '${pd.Cost}','${pd.Status}','${pd.TurnPay}','${pd.Detail}') `;
 
     return data.insert(sql);
 }

@@ -19,4 +19,13 @@ router.put('/updatePriceNow', (req, res) => {
     })
 })
 
+router.get('/:id', (req, res) => {
+    console.log(req.params.id)
+    singleRepo.SelectTopbyId(req.params.id).then((user) => {
+        res.json(user)
+    }).catch((err) => {{
+        console.log(err);
+    }})
+})
+
 module.exports = router;

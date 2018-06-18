@@ -1,6 +1,6 @@
 var Moment = require('moment')
 
-const DateUtil = {
+exports.DateUtil = {
 	convert: (date) => Moment(date),
 
 	format: (date) => Moment(date).format('YYYY-MM-DD HH:mm'),

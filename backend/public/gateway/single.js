@@ -31,60 +31,57 @@ $('#logout').click(function () {
     $('#loginSuccessuser').hide()
 });
 
-function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10)
-        seconds = parseInt(timer % 60, 10);
+// function startTimer(duration, display) {
+//     var timer = duration, minutes, seconds;
+//     setInterval(function () {
+//         minutes = parseInt(timer / 60, 10)
+//         seconds = parseInt(timer % 60, 10);
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+//         minutes = minutes < 10 ? "0" + minutes : minutes;
+//         seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.textContent = minutes + ":" + seconds;
+//         display.textContent = minutes + ":" + seconds;
 
-        if (--timer < 0) {
-            timer = duration;
-        }
-    }, 1000);
-}
-
-window.onload = function () {
-    var fiveMinutes = 60 * 5,
-        display = document.querySelector('#time');
-    startTimer(fiveMinutes, display);
-};
+//         if (--timer < 0) {
+//             timer = duration;
+//         }
+//     }, 1000);
+// }
 
 var showDetail = () => {
     $.getJSON("http://localhost:5555/product/" + c, (data) => {
-        console.log('data', data)
-        $.getJSON('http://localhost:5555/product/getimage/' + data[0].Id, (images) => {
-            var item =
-                '<div class="col-md-4 agileinfo_single_left">' +
-                '<img id="example" src="images/' + images[0].Image1 + '" alt=" " class="img-responsive">' +
-                '</div>' +
-                '<div class="col-md-8 agileinfo_single_right">' +
-                '<div>Kết thúc trong <span style="font-size: 140%" id="time">05:00</span> minutes!</div>' +
-                '<h2>' + data[0].ProductName + '</h2>' +
-                '<div class="rating1">' +
-                '<span class="starRating">' +
-                '</span>' +
-                '</div>' +
-                '  <div class="w3agile_description">' +
-                '<h4>Description :</h4><br/>' +
-                '<span>' + data[0].Detail + '</span>' +
-                '</div>' +
-                '<div class="snipcart-item block">' +
-                '<div class="snipcart-thumb agileinfo_single_right_snipcart">' +
-                '<h4 class="m-sing">Giá hiện tại:<span style="font-size: 140%" id="priceNow"> ' + data[0].PricePay + '</span><br/>Giá mua ngay: <span style="font-size: 140%"> ' + data[0].PriceNow + '</span></h4>' +
-                '</div>' +
-                '<div class="snipcart-details agileinfo_single_right_details">' +
-                '</div>' +
-                '<a>Đấu giá ngay với: <span style="font-size: 140%" id="priceCostShow">' + data[0].Cost + '</span> </a><br/><br/>' +
-                '<button id="user-auction"  onclick="myFunction()" >Đấu Giá</button>' +
-                '<input type="hidden" id="pricecost" value="' + data[0].Cost + '"/> ' +
-                '</div>' +
-                '</div >'
-            $('#loadDetail').append(item);
+        $.getJSON('http://localhost:5555/single/' + c, (price) => {
+            $.getJSON('http://localhost:5555/product/getimage/' + data[0].Id, (images) => {
+                var item =
+                    '<div class="col-md-4 agileinfo_single_left">' +
+                    '<img id="example" src="images/' + images[0].Image1 + '" alt=" " class="img-responsive">' +
+                    '</div>' +
+                    '<div class="col-md-8 agileinfo_single_right">' +
+                    '<div>Kết thúc đấu giá lúc <span style="font-size: 140%" id="time"></span></div>' +
+                    '<h2>' + data[0].ProductName + '</h2>' +
+                    '<div class="rating1">' +
+                    '<span class="starRating">' +
+                    '</span>' +
+                    '</div>' +
+                    '  <div class="w3agile_description">' +
+                    '<h4>Description :</h4><br/>' +
+                    '<span>' + data[0].Detail + '</span>' +
+                    '</div>' +
+                    '<div class="snipcart-item block">' +
+                    '<div class="snipcart-thumb agileinfo_single_right_snipcart">' +
+                    '<h4 class="m-sing">Giá hiện tại:<span style="font-size: 140%" id="priceNow"> ' + data[0].PricePay + '</span><br/>Giá mua ngay: <span style="font-size: 140%"> ' + data[0].PriceNow + '</span></h4>' +
+                    '</div>' +
+                    '<div class="snipcart-details agileinfo_single_right_details">' +
+                    '</div>' +
+                    '<a>Đấu giá ngay với: <span style="font-size: 140%" id="priceCostShow">' + data[0].Cost + '</span> </a><br/><br/>' +
+                    '<div id="user-top">Người giữ giá hiện tại: <span style="font-size: 140%" id="topAuction"> ' + price[0].email_user + '</span> </div>' +
+                    '<button id="user-auction"  onclick="myFunction()" >Đấu Giá</button>' +
+                    '<input type="hidden" id="pricecost" value="' + data[0].Cost + '"/> ' +
+                    '</div>' +
+                    '</div >'
+                $('#loadDetail').append(item);
+                $("#time").append(moment(data[0].TimeDown).format('MMMM Do YYYY, h:mm:ss a'))
+            })
         })
     })
 }
@@ -116,11 +113,14 @@ function myFunction() {
     }).done((data) => {
         socket.emit("client-send-price-now", {
             pricePay: sumaution,
-            id: c
+            id: c,
+            username: $('#username').html()
         });
     })
     socket.on("server-send-priceNowbyId", (data) => {
+        console.log('aaaaaaaaaaaaaaaaaaa', data)
         $('#priceNow').html(data.pricePay)
+        $('#topAuction').html(data.username)
     })
 }
 
@@ -139,7 +139,7 @@ var getCategoryDetail = () => {
                     '<figure>' +
                     '<div class="snipcart-item block">' +
                     '<div class="snipcart-thumb">' +
-                    ' <a href="products.html"><img height="150" width="150" title=" " alt=" " src="images/' + images[0].Image1 + '"></a>		' +
+                    ' <a href="single?id=' + items.Id + '&idcategory=' + items.id_category + '"><img height="150" width="150" title=" " alt=" " src="images/' + images[0].Image1 + '"></a>		' +
                     '<p>' + items.ProductName + '</p>' +
                     '<div class="stars">' +
                     '<i class="fa fa-star blue-star" aria-hidden="true"></i>' +
