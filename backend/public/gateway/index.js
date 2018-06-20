@@ -221,7 +221,14 @@ socket.emit("send-price-now", "hello");
 
 
 var loadpage = (page) => {
+    if (!localStorage.access_token) {
+        $("#create-new-product").hide()
+    }
     $.getJSON("http://localhost:5555/product/pagination/" + page, (data) => {
+        console.log(data)
+        if(!data[0]) {
+            $('#loadmore').hide()
+        }
         $.each(data, (index, items) => {
             $.getJSON('http://localhost:5555/product/getimage/' + items.Id, (images) => {
                 var item =
@@ -290,3 +297,4 @@ loadpage(1);
 function createProduct() {
     location.replace('/create-product')
 }
+
