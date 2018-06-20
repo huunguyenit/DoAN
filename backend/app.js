@@ -4,19 +4,19 @@ var bodyParser = require('body-parser')
 var cors = require('cors')
 var morgan = require('morgan')
 var mailer = require('express-mailer')
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var http = require('http').Server(app)
+var io = require('socket.io')(http)
+var multer = require('multer')
 
 app.use(express.static('public'))
 
 require('dotenv').config()
-
-
 var AuthRouter = require('./router/auth.router')
 var AdminRouter = require('./router/admin.router')
 var product = require('./apiController/ProductController')
 var user = require('./apiController/UserController')
 var single = require('./apiController/SingleController')
+var image = require('./apiController/ImageController')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -25,6 +25,19 @@ app.use(morgan('dev'))
 
 // add settings for app.
 app.set('view engine', 'ejs')
+
+// upload image originalName
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/images')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+});
+
+var upload = multer({ storage: storage })
+
 
 // setting for mailer.
 mailer.extend(app, {
@@ -55,6 +68,10 @@ app.get('/register', function (req, res) {
     res.sendFile(__dirname + '/views/frontend/layouts/register.html');
 });
 
+app.get('/create-product', function (req, res) {
+    res.sendFile(__dirname + '/views/frontend/layouts/about.html');
+});
+
 // load auth's router.
 app.use('/auth', AuthRouter)
 
@@ -65,6 +82,12 @@ app.use('/admin', AdminRouter)
 app.use('/product', product)
 app.use('/user', user)
 app.use('/single', single)
+app.use('/image', image)
+
+app.post('/upload', upload.array('photos', 3), (req, res) => {
+    alert('Create Success')
+    res.sendFile(__dirname + '/views/frontend/layouts/about.html');
+});
 
 // socketio server open
 io.on('connection', function (socket) {
