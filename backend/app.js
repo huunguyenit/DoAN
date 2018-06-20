@@ -65,7 +65,7 @@ app.get('/login', function (req, res) {
 });
 
 app.get('/register', function (req, res) {
-    res.sendFile(__dirname + '/views/frontend/layouts/register.html');
+    res.sendFile(__dirname + '/views/frontend/layouts/registered.html');
 });
 
 app.get('/create-product', function (req, res) {
@@ -83,9 +83,7 @@ app.use('/product', product)
 app.use('/user', user)
 app.use('/single', single)
 app.use('/image', image)
-
 app.post('/upload', upload.array('photos', 3), (req, res) => {
-    alert('Create Success')
     res.sendFile(__dirname + '/views/frontend/layouts/about.html');
 });
 

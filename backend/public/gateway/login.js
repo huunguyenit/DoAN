@@ -4,9 +4,6 @@ $("#btnlogin").on("click", () => {
     var _email = $("#txtEmail").val();
     var _password = $("#txtPassword").val();
 
-    console.log(_email);
-    console.log(_password);
-
     var body = {
         email: _email,
         password: _password
