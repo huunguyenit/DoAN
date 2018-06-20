@@ -50,7 +50,7 @@ var search = () => {
                             '<div class="snipcart-item block">' +
                             '<div class="snipcart-thumb">' +
                             '<a href="products.html">' +
-                            '<img title=" " height="80" width="80" src="images/' + images[0].Image1 + '" />' +
+                            '<img title=" " height="150" width="200" src="images/' + images[0].Image1 + '" />' +
                             '</a>' +
                             '<p>' + items.ProductName + '</p>' +
                             '<div class="stars">' +
@@ -100,7 +100,7 @@ $.getJSON("http://localhost:5555/product/toppricenow", (data) => {
                 '<div class="snipcart-item block">' +
                 '<div class="snipcart-thumb">' +
                 '<a href="single?id=' + items.Id + '&idcategory=' + items.id_category + '" data-user-id="' + items.Id + '">' +
-                '<img title=" " height="80" width="80" src="images/' + images[0].Image1 + '" />' +
+                '<img title=" " height="150" width="200" src="images/' + images[0].Image1 + '" />' +
                 '</a>' +
                 '<p>' + items.ProductName + '</p>' +
                 '<div class="stars">' +
@@ -143,7 +143,7 @@ $.getJSON("http://localhost:5555/product/topturnpay", (data) => {
                 '<div class="snipcart-item block">' +
                 '<div class="snipcart-thumb">' +
                 '<a href="single?id=' + items.Id + '" data-user-id="' + items.Id + '">' +
-                '<img title=" " height="80" width="80" src="images/' + images[0].Image1 + '" />' +
+                '<img title=" " height="150" width="200" src="images/' + images[0].Image1 + '" />' +
                 '</a>' +
                 '<p>' + items.ProductName + '</p>' +
                 '<div class="stars">' +
@@ -184,7 +184,7 @@ $.getJSON("http://localhost:5555/product/topendtime", (data) => {
                 '<div class="snipcart-item block">' +
                 '<div class="snipcart-thumb">' +
                 '<a href="single?id=' + items.Id + '" data-user-id="' + items.Id + '">' +
-                '<img title=" " height="80" width="80" src="images/' + images[0].Image1 + '" />' +
+                '<img title=" " height="150" width="200" src="images/' + images[0].Image1 + '" />' +
                 '</a>' +
                 '<p>' + items.ProductName + '</p>' +
                 '<div class="stars">' +
@@ -235,7 +235,7 @@ var loadpage = (page) => {
                     '<div class="snipcart-item block">' +
                     '<div class="snipcart-thumb">' +
                     '<a href="single?id=' + items.Id + '" data-user-id="' + items.Id + '">' +
-                    '<img title=" " height="80" width="80" src="images/' + images[0].Image1 + '" />' +
+                    '<img title=" " height="150" width="200" src="images/' + images[0].Image1 + '" />' +
                     '</a>' +
                     '<p>' + items.ProductName + '</p>' +
                     '<div class="stars">' +
@@ -286,3 +286,7 @@ loadpage(1);
 //         }
 //     })
 // }
+
+function createProduct() {
+    location.replace('/create-product')
+}
