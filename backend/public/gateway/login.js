@@ -16,8 +16,8 @@ $("#btnlogin").on("click", () => {
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(body)
-    }).done((data) => {        
-        localStorage.access_token = data.token         
+    }).done((data) => {
+        localStorage.access_token = data.token
         if (localStorage.access_token !== 'undefined') {
             $.ajax({
                 url: 'http://localhost:5555/auth/secured',
@@ -26,9 +26,13 @@ $("#btnlogin").on("click", () => {
                 headers: {
                     'token': localStorage.access_token
                 }
-            }).done(() => {
+            }).done((data) => {
                 alert('Login Success!!!')
-                location.replace('/')
+                if (data.payload.isAdmin == 1) {
+                    location.replace('admin/users')
+                } else {
+                    location.replace('/')
+                }
             })
         } else {
             alert('Tài Khoản hoặc mật khẩu chưa chính xác, vui lòng nhập lại!!!')

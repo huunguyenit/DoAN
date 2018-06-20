@@ -8,6 +8,7 @@ $.ajax({
     }
 }).done((data) => {
     var c = data.payload.email
+    console.log(data)
     if (c !== null) {
         $('#loginSuccess').hide()
         $('#username').html(c)
@@ -225,7 +226,6 @@ var loadpage = (page) => {
         $("#create-new-product").hide()
     }
     $.getJSON("http://localhost:5555/product/pagination/" + page, (data) => {
-        console.log(data)
         if(!data[0]) {
             $('#loadmore').hide()
         }
