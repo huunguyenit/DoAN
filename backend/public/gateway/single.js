@@ -81,7 +81,7 @@ var showDetail = () => {
                     '</div>' +
                     '</div >'
                 $('#loadDetail').append(item);
-                $("#time").append(moment(data[0].TimeDown).format('MMMM Do YYYY, h:mm:ss a'))
+                $("#time").append(moment(data[0].TimeDown).endOf('day').fromNow())
             })
         })
     })

@@ -47,8 +47,8 @@ var search = () => {
                             '<div class="agile_top_brand_left_grid">' +
                             '<div class="agile_top_brand_left_grid_pos">' +
                             '</div>' +
-                            '<div class="agile_top_brand_left_grid1">' +
-                            '<div style="padding-bottom: 10px; font-weight: 600">Time End: <span id="timePay">' + moment(items.TimeDown).format('MMMM Do YYYY, h:mm:ss a') + '</span><br/> </div>' +
+                            '<div class="agile_top_brand_left_grid1" style="text-align: center">' +
+                            '<div style="padding-bottom: 10px; font-weight: 600">Time End: <span id="timePay">' + moment(items.TimeDown).endOf('day').fromNow() + '</span><br/> </div>' +
                             '<figure>' +
                             '<div class="snipcart-item block">' +
                             '<div class="snipcart-thumb">' +
@@ -98,8 +98,8 @@ $.getJSON("http://localhost:5555/product/toppricenow", (data) => {
                 '<div class="agile_top_brand_left_grid">' +
                 '<div class="agile_top_brand_left_grid_pos">' +
                 '</div>' +
-                '<div class="agile_top_brand_left_grid1">' +
-                '<div style="padding-bottom: 10px; font-weight: 600">Time End: <span id="timePay">' + moment(items.TimeDown).format('MMMM Do YYYY, h:mm:ss a') + '</span><br/> </div>' +
+                '<div class="agile_top_brand_left_grid1" style="text-align: center">' +
+                '<div style="padding-bottom: 10px; font-weight: 600">Time End: <span id="timePay">' + moment(items.TimeDown).endOf('day').fromNow() + '</span><br/> </div>' +
                 '<figure>' +
                 '<div class="snipcart-item block">' +
                 '<div class="snipcart-thumb">' +
@@ -140,10 +140,10 @@ $.getJSON("http://localhost:5555/product/topturnpay", (data) => {
                 '<div class="col-md-4 top_brand_left" style="padding-top: 20px">' +
                 '<div class="hover14 column">' +
                 '<div class="agile_top_brand_left_grid">' +
-                '<div class="agile_top_brand_left_grid_pos">' +
+                '<div class="agile_top_brand_left_grid_pos" >' +
                 '</div>' +
-                '<div class="agile_top_brand_left_grid1">' +
-                '<div style="padding-bottom: 10px; font-weight: 600">Time End: <span id="timePay">' + moment(items.TimeDown).format('MMMM Do YYYY, h:mm:ss a') + '</span><br/> </div>' +
+                '<div class="agile_top_brand_left_grid1" style="text-align: center">' +
+                '<div style="padding-bottom: 10px; font-weight: 600">Time End: <span id="timePay">' + moment(items.TimeDown).endOf('day').fromNow() + '</span><br/> </div>' +
                 '<figure>' +
                 '<div class="snipcart-item block">' +
                 '<div class="snipcart-thumb">' +
@@ -184,8 +184,8 @@ $.getJSON("http://localhost:5555/product/topendtime", (data) => {
                 '<div class="agile_top_brand_left_grid">' +
                 '<div class="agile_top_brand_left_grid_pos">' +
                 '</div>' +
-                '<div class="agile_top_brand_left_grid1">' +
-                '<div style="padding-bottom: 10px; font-weight: 600">Time End: <span id="timePay">' + moment(items.TimeDown).format('MMMM Do YYYY, h:mm:ss a') + '</span><br/> </div>' +
+                '<div class="agile_top_brand_left_grid1" style="text-align: center">' +
+                '<div style="padding-bottom: 10px; font-weight: 600">Time End: <span id="timePay">' + moment(items.TimeDown).endOf('day').fromNow() + '</span><br/> </div>' +
                 '<figure>' +
                 '<div class="snipcart-item block">' +
                 '<div class="snipcart-thumb">' +
@@ -243,8 +243,8 @@ var loadpage = (page) => {
                     '<div class="agile_top_brand_left_grid">' +
                     '<div class="agile_top_brand_left_grid_pos">' +
                     '</div>' +
-                    '<div class="agile_top_brand_left_grid1">' +
-                    '<div style="padding-bottom: 10px; font-weight: 600">Time End: <span id="timePay">' + moment(items.TimeDown).format('MMMM Do YYYY, h:mm:ss a') + '</span><br/> </div>' +
+                    '<div class="agile_top_brand_left_grid1" style="text-align: center">' +
+                    '<div style="padding-bottom: 10px; font-weight: 600">Time End: <span id="timePay">' + moment(items.TimeDown).endOf('day').fromNow() + '</span><br/> </div>' +
                     '<figure>' +
                     '<div class="snipcart-item block">' +
                     '<div class="snipcart-thumb">' +
