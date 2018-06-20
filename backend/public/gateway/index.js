@@ -42,11 +42,13 @@ var search = () => {
                     $.getJSON('http://localhost:5555/product/getimage/' + items.Id, (images) => {
                         var item =
                             '<div class="col-md-4 top_brand_left" style="padding-top: 40px">' +
+                            '<div>Kết thúc đấu giá lúc : <br/></div>' +
                             '<div class="hover14 column">' +
                             '<div class="agile_top_brand_left_grid">' +
                             '<div class="agile_top_brand_left_grid_pos">' +
                             '</div>' +
                             '<div class="agile_top_brand_left_grid1">' +
+                            '<div style="padding-bottom: 10px; font-weight: 600">Time End: <span id="timePay">' + moment(items.TimeDown).format('MMMM Do YYYY, h:mm:ss a') + '</span><br/> </div>' +
                             '<figure>' +
                             '<div class="snipcart-item block">' +
                             '<div class="snipcart-thumb">' +
@@ -97,6 +99,7 @@ $.getJSON("http://localhost:5555/product/toppricenow", (data) => {
                 '<div class="agile_top_brand_left_grid_pos">' +
                 '</div>' +
                 '<div class="agile_top_brand_left_grid1">' +
+                '<div style="padding-bottom: 10px; font-weight: 600">Time End: <span id="timePay">' + moment(items.TimeDown).format('MMMM Do YYYY, h:mm:ss a') + '</span><br/> </div>' +
                 '<figure>' +
                 '<div class="snipcart-item block">' +
                 '<div class="snipcart-thumb">' +
@@ -140,6 +143,7 @@ $.getJSON("http://localhost:5555/product/topturnpay", (data) => {
                 '<div class="agile_top_brand_left_grid_pos">' +
                 '</div>' +
                 '<div class="agile_top_brand_left_grid1">' +
+                '<div style="padding-bottom: 10px; font-weight: 600">Time End: <span id="timePay">' + moment(items.TimeDown).format('MMMM Do YYYY, h:mm:ss a') + '</span><br/> </div>' +
                 '<figure>' +
                 '<div class="snipcart-item block">' +
                 '<div class="snipcart-thumb">' +
@@ -181,6 +185,7 @@ $.getJSON("http://localhost:5555/product/topendtime", (data) => {
                 '<div class="agile_top_brand_left_grid_pos">' +
                 '</div>' +
                 '<div class="agile_top_brand_left_grid1">' +
+                '<div style="padding-bottom: 10px; font-weight: 600">Time End: <span id="timePay">' + moment(items.TimeDown).format('MMMM Do YYYY, h:mm:ss a') + '</span><br/> </div>' +
                 '<figure>' +
                 '<div class="snipcart-item block">' +
                 '<div class="snipcart-thumb">' +
@@ -226,7 +231,8 @@ var loadpage = (page) => {
         $("#create-new-product").hide()
     }
     $.getJSON("http://localhost:5555/product/pagination/" + page, (data) => {
-        if(!data[0]) {
+        console.log('data', data)
+        if (!data[0]) {
             $('#loadmore').hide()
         }
         $.each(data, (index, items) => {
@@ -238,6 +244,7 @@ var loadpage = (page) => {
                     '<div class="agile_top_brand_left_grid_pos">' +
                     '</div>' +
                     '<div class="agile_top_brand_left_grid1">' +
+                    '<div style="padding-bottom: 10px; font-weight: 600">Time End: <span id="timePay">' + moment(items.TimeDown).format('MMMM Do YYYY, h:mm:ss a') + '</span><br/> </div>' +
                     '<figure>' +
                     '<div class="snipcart-item block">' +
                     '<div class="snipcart-thumb">' +
@@ -271,28 +278,6 @@ var loadpage = (page) => {
 }
 
 loadpage(1);
-
-// $('a').on('click', (e) => {
-//     e.preventDefault();
-//     var pageref = $(this).attr('href');
-//     console.log('a', pageref);
-//     callPage(pageref)
-// })
-
-// function callPage(pageRefInput) {
-//     console.log('aaaaaaaa', pageRefInput)
-//     $.ajax({
-//         url: pageRefInput,
-//         type: 'GET',
-//         dataType: 'text/html',
-//         success: (res) => {
-//             $('#pageload').html(res);
-//         },
-//         error: (err) => {
-//             console.log(err);
-//         }
-//     })
-// }
 
 function createProduct() {
     location.replace('/create-product')

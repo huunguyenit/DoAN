@@ -76,6 +76,7 @@ var showDetail = () => {
                     '<a>Đấu giá ngay với: <span style="font-size: 140%" id="priceCostShow">' + data[0].Cost + '</span> </a><br/><br/>' +
                     '<div id="user-top">Người giữ giá hiện tại: <span style="font-size: 140%" id="topAuction"> ' + price[0].email_user + '</span> </div>' +
                     '<button id="user-auction"  onclick="myFunction()" >Đấu Giá</button>' +
+                    '<button id="user-auction"  onclick="PriceNow()" >Mua ngay</button>' +
                     '<input type="hidden" id="pricecost" value="' + data[0].Cost + '"/> ' +
                     '</div>' +
                     '</div >'
@@ -84,6 +85,14 @@ var showDetail = () => {
             })
         })
     })
+}
+
+function PriceNow() {
+    var isConfirm = confirm("Bạn có chắc là muốn mua ngay!");
+
+    if (isConfirm) {
+        $('#loadDetail').html('Kết thúc đấu giá tại đây')
+    }
 }
 
 function myFunction() {
