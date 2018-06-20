@@ -80,12 +80,8 @@ $('#btnRegister').on('click', function () {
         contentType: 'application/json',
         data: JSON.stringify(body)
     }).done((data) => {
-        console.log(data);
-        if (data.success) {
-            swal("Good job!", "You clicked the button!", "success");
-        } else {
-            swal("Invalid captcha.", "You clicked the button!", "error");
-        }
+        alert('Create Account Success!!')
+        location.replace('/login')
     }).fail((xhr, textStatus, err) => {
         console.log('here')
         console.log(xhr)
