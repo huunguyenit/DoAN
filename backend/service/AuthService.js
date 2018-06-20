@@ -65,7 +65,7 @@ exports.authResponse = (user) => {
     if (user[0]) {
         let payload = {
             'email': user[0].Email,
-            'isAdmin': user[0].isAdmin ? user[0].isAdmin.data : 0
+            'isAdmin': user[0].isAdmin ? 1 : 0
         }
         let token = jwt.sign(payload, 'secret')
         return {
