@@ -28,7 +28,8 @@ $("#btnlogin").on("click", () => {
                 }
             }).done((data) => {
                 alert('Login Success!!!')
-                if (data.payload.isAdmin == 1) {
+                alert(data.payload.isAdmin)
+                if (data.payload.isAdmin === 1) {
                     location.replace('admin/users')
                 } else {
                     location.replace('/')
