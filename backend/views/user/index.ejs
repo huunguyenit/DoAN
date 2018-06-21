@@ -98,3 +98,63 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Delete user</h4>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type='text/javascript'>
+    window.deleteUser = function (event) {
+        event.preventDefault()
+
+        $('.modal').modal('hide')
+        $('.loader-container').addClass('loader')
+        $.ajax({
+            method: 'DELETE',
+            url: $(event.target).data('url')
+        })
+            .done(result => {
+                // show success popup.
+                $('#result_popup .modal-title').html('Delete user successfuly!')
+            })
+            .fail(err => {
+                // show error popup.
+                $('#result_popup .modal-title').html('Delete user fail, something went wrong!')
+            })
+            .always(() => {
+                // close popup.
+                $('#result_popup').modal('show')
+                setInterval(() => {
+                    $('#result_popup').modal('hide')
+                    setInterval(location.reload(), 1000)
+                }, 2000)
+            })
+    }
+
+    window.resetPassword = function (event) {
+        event.preventDefault()
+
+        $('.modal').modal('hide')
+        $('.loader-container').addClass('loader')
+        $.ajax({
+            method: 'PUT',
+            url: $(event.target).data('url')
+        })
+            .done(result => {
+                // show success popup.
+                $('#result_popup .modal-title').html('Reset password successfuly!')
+            })
+            .fail(err => {
+                // show error popup.
+                $('#result_popup .modal-title').html('Reset password fail, something went wrong!')
+            })
+            .always(() => {
+                // close popup.
+                $('#result_popup').modal('show')
+                setInterval(() => {
+                    $('#result_popup').modal('hide')
+                }, 2000)
+            })
+    }
+</script>

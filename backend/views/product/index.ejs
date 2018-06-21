@@ -11,7 +11,7 @@
     </thead>
     <tbody>
         <% for (let i = 0; i < products.length; i++) { %>
-            <tr>
+            <tr> 
                 <td>
                     <%= products[i].Id %>
                 </td>
@@ -23,13 +23,13 @@
                 </td>
                 <td>
                     <!-- 0. new & waiting for processing -->
-                    <%if (products[i].status == 0) { %>
+                    <%if (products[i].Status.data == 0) { %>
                         New
                     <!-- 1. approve -->
-                    <% } else if (products[i].status == 1) { %>
+                    <% } else if ( products[i].Status.data == 1) { %>
                         Approve
                     <!-- 2. reject -->
-                    <% } else if (products[i].status == 2) { %>
+                    <% } else if (products[i].Status.data == 2) { %>
                         Reject
                     <% } %>
                 </td>
@@ -38,9 +38,38 @@
                     <%= date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear() %>
                 </td>
                 <td>
-
+                    <% let deleteURL = '/admin/products/delete/' + products[i].Id %>
+                 
+                    <a class="btn btn-success" href="<%= deleteURL %>/1">Approve</a>
+                    <a class="btn btn-primary" href="<%= deleteURL %>/2">Reject</a>
                 </td>
             </tr>
         <% } %>
     </tbody>
 </table>
+<script type='text/javascript'>
+    window.changeStatus = function (event, product) {
+        event.preventDefault()
+console.log('products[i]', event, product);
+        // $.ajax({
+        //     method: 'DELETE',
+        //     url: $(event.target).data('url')
+        // })
+        //     .done(result => {
+        //         // show success popup.
+        //         $('#result_popup .modal-title').html('Delete user successfuly!')
+        //     })
+        //     .fail(err => {
+        //         // show error popup.
+        //         $('#result_popup .modal-title').html('Delete user fail, something went wrong!')
+        //     })
+        //     .always(() => {
+        //         // close popup.
+        //         $('#result_popup').modal('show')
+        //         setInterval(() => {
+        //             $('#result_popup').modal('hide')
+        //             setInterval(location.reload(), 1000)
+        //         }, 2000)
+        //     })
+    }
+</script>
