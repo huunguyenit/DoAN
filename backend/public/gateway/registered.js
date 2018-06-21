@@ -65,27 +65,70 @@ $('#btnRegister').on('click', function () {
     var _password = $('#txtPassword').val()
     var _confirmPassword = $('#txtConfirmPWD').val()
 
-    var body = {
-        email: _email,
-        address: _address,
-        password: _password,
-        fullname: _fullName
+    var flag = true
+
+    if (_fullName == '') {
+        $('#name').text('Vui lòng nhập tên ');
+        flag = false;
+    } else {
+        $('#name').text('');
     }
 
-    $.ajax({
-        url: 'http://localhost:5555/user/register',
-        dataType: 'json',
-        timeout: 10000,
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(body)
-    }).done((data) => {
-        alert('Create Account Success!!')
-        location.replace('/login')
-    }).fail((xhr, textStatus, err) => {
-        console.log('here')
-        console.log(xhr)
-        console.log(textStatus)
-        console.log(err)
-    })
+    if (_address == '') {
+        $('#address').text('Vui lòng nhập địa chỉ');
+        flag = false;
+    } else {
+        $('#address').text('');
+    }
+
+    if (_email == '') {
+        $('#email').text('Vui lòng nhập Email');
+        flag = false;
+    } else {
+        $('#email').text('')
+    }
+
+    if (_password == '') {
+        $('#password').text('Vui lòng nhập password');
+        flag = false;
+    } else {
+        $('#password').text('')
+    }
+
+    if (_confirmPassword == '') {
+        $('#cfpassword').text('Vui lòng nhập lại password');
+        flag = false;
+    } else {
+        $('#cfpassword').text('')
+    }
+
+    if (_fullName != '' && _address != '' && _email != '' && _password != '' && _confirmPassword != '') {
+        flag = true;
+    }
+
+    if (flag == true) {
+        var body = {
+            email: _email,
+            address: _address,
+            password: _password,
+            fullname: _fullName
+        }
+    
+        $.ajax({
+            url: 'http://localhost:5555/user/register',
+            dataType: 'json',
+            timeout: 10000,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(body)
+        }).done((data) => {
+            alert('Create Account Success!!')
+            location.replace('/login')
+        }).fail((xhr, textStatus, err) => {
+            console.log('here')
+            console.log(xhr)
+            console.log(textStatus)
+            console.log(err)
+        })
+    }
 });

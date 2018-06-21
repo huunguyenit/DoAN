@@ -67,9 +67,13 @@ exports.signin = (body) => {
 
 exports.authResponse = (user) => {
     if (user[0]) {
+        console.log(typeof(user[0].isAdmin))
+        console.log(user[0].isAdmin)
+        console.log(user[0])
+        console.log(user[0].isAdmin === 1 ? 1 : 0)
         let payload = {
             'email': user[0].Email,
-            'isAdmin': user[0].isAdmin == 1 ? 1 : 0
+            'isAdmin': user[0].isAdmin === 1 ? 1 : 0
         }
         let token = jwt.sign(payload, 'secret')
         return {
